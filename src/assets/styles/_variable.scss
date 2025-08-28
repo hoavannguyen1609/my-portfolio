@@ -1,0 +1,24 @@
+/* Các biến màu */
+$primary-color: #2575fc;
+$secondary-color: #6a11cb;
+$text-color: #333;
+$light-background: #eef2f5;
+$white: #ffffff;
+$light-blue: #e0f2fe;
+$dark-blue-text: #0b4f6c;
+$border-color: #e0e0e0;
+$gradient-start: $secondary-color;
+$gradient-end: $primary-color;
+$footer-link-color: #cbd5e1;
+$footer-social-color: #a0aec0;
+$tooltip-background: #333;
+$gold-star: #ffd700;
+$language-switcher-bg: #f3f4f6;
+$language-switcher-text: #4b5563;
+$language-switcher-hover-bg: #e5e7eb;
+$language-switcher-hover-text: #1f2937;
+
+/* Các biến kích thước */
+$mobile-breakpoint: 767px;
+$tablet-min-breakpoint: 768px;
+$tablet-max-breakpoint: 1023px;

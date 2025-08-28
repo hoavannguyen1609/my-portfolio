@@ -1,0 +1,130 @@
+[
+    {
+        "name": "Reavol",
+        "icon": "fa-solid fa-r text-[#33bf71]",
+        "company": "84Soft | Reavol",
+        "role": "projReavolRole",
+        "description": "projReavolDesc",
+        "technologies": [
+            "React",
+            "Next",
+            "TypeScript",
+            "Java Spring Boot",
+            "Firebase",
+            "MySQL",
+            "AWS",
+            "etc."
+        ]
+    },
+    {
+        "name": "CakeAI",
+        "icon": "fas fa-robot text-[#33bf71]",
+        "company": "84Soft",
+        "role": "projCakeAIRole",
+        "description": "projCakeAIDesc",
+        "technologies": [
+            "React",
+            "Next",
+            "TypeScript",
+            "NestJS",
+            "Firebase",
+            "MySQL",
+            "Socket.IO",
+            "OpenAI API",
+            "etc."
+        ]
+    },
+    {
+        "name": "MyID",
+        "icon": "fas fa-id-card text-red-600",
+        "company": "84Soft | InterITS",
+        "role": "projMyIDRole",
+        "description": "projMyIDDesc",
+        "technologies": [
+            "React",
+            "Next",
+            "TypeScript",
+            "Java Spring Boot",
+            "MySQL",
+            "Firebase",
+            "etc."
+        ]
+    },
+    {
+        "name": "SmartQA",
+        "icon": "fas fa-headphones-alt text-teal-600",
+        "company": "84Soft | InterITS",
+        "role": "projSmartQARole",
+        "description": "projSmartQADesc",
+        "technologies": [
+            "React",
+            "Next",
+            "TypeScript",
+            "Java Spring Boot",
+            "MySQL",
+            "OpenAI API",
+            "etc."
+        ]
+    },
+    {
+        "name": "MeetLaw",
+        "icon": "fas fa-balance-scale text-red-600",
+        "company": "84Soft",
+        "role": "projMeetLawRole",
+        "description": "projMeetLawDesc",
+        "technologies": [
+            "React",
+            "NextJS",
+            "TypeScript",
+            "Java Spring Boot",
+            "MySQL",
+            "OpenAI API",
+            "etc."
+        ]
+    },
+    {
+        "name": "Art Contest",
+        "icon": "fas fa-paint-brush text-red-500",
+        "company": "84Soft | Vifolac",
+        "role": "projArtContestRole",
+        "description": "projArtContestDesc",
+        "technologies": [
+            "React",
+            "TypeScript",
+            "Redux Toolkit",
+            "Node.js",
+            "MySQL",
+            "etc."
+        ]
+    },
+    {
+        "name": "Vtbay",
+        "icon": "fas fa-plane text-red-600",
+        "company": "84Soft | Viettel Post",
+        "role": "projVtbayRole",
+        "description": "projVtbayDesc",
+        "technologies": [
+            "React",
+            "TypeScript",
+            "Redux Toolkit",
+            "etc."
+        ]
+    },
+    {
+        "name": "Vegiare",
+        "icon": "fas fa-plane text-orange-600",
+        "company": "84Soft | VeGiare",
+        "role": "projVegiareRole",
+        "description": "projVegiareDesc",
+        "technologies": [
+            "React",
+            "Next",
+            "TypeScript",
+            "Redux Toolkit",
+            "Node.js",
+            "Express.js",
+            "MySQL",
+            "etc."
+        ]
+    }
+]

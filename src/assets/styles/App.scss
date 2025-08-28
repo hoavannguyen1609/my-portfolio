@@ -1,0 +1,17 @@
+@use './variable' as v;
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  background-color: v.$light-background;
+  color: v.$text-color;
+  scroll-behavior: smooth;
+  font-size: 16px;
+  line-height: 1.5;
+}

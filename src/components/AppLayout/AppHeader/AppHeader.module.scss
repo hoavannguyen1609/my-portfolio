@@ -1,0 +1,77 @@
+@use '@/assets/styles/variable' as v;
+@use '@/assets/styles/mixin' as m;
+
+.app-header {
+  .nav-link {
+    @include m.transition(color 0.3s ease, transform 0.2s ease);
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: v.$primary-color; /* Underline on hover */
+      @include m.transition(width 0.3s ease-in-out);
+    }
+
+    &:hover {
+      color: v.$primary-color;
+      @include m.transform(translateY(-2px));
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+
+  .mobile-menu {
+    inset: 0;
+    @include m.transform(translateX(100%));
+    @include m.transition(transform 0.25s ease-in-out);
+
+    &.show {
+      @include m.transform(translateX(0));
+    }
+
+    .mobile-menu-close-button {
+      background-color: v.$light-background;
+      border-radius: 100%;
+
+      &:hover,
+      &:active {
+        background-color: rgba($color: v.$primary-color, $alpha: 0.8);
+        color: v.$white;
+      }
+    }
+
+    .mobile-menu__list {
+      > li {
+        border-radius: 4px;
+        overflow: hidden;
+        @include m.transition(background-color 0.2s ease);
+
+        a {
+          font-weight: 600;
+          @include m.transition(color 0.2s ease);
+        }
+
+        &:not(:last-child) {
+          border-bottom: 1px solid v.$border-color;
+        }
+      }
+
+      li {
+        &:hover,
+        &:focus {
+          background-color: rgba($color: v.$light-background, $alpha: 1);
+
+          a {
+            color: rgba($color: v.$primary-color, $alpha: 1);
+          }
+        }
+      }
+    }
+  }
+}

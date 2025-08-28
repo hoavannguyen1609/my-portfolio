@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { ConfigProvider } from 'antd';
+import { getAnalytics } from 'firebase/analytics';
+import { initializeApp } from 'firebase/app';
+import Cookies from 'js-cookie';
+import { useEffect } from 'react';
+import { RouterProvider } from 'react-router';
+
+import viLocale from 'antd/locale/vi_VN';
+
+import { AppLayout } from './components/AppLayout';
+import { firebaseConfig } from './config/firebase';
+import { ACCESS_TOKEN_KEY, COLOR_PRIMARY, LANGUAGE_KEY, LANGUAGE_VI } from './constants';
+import { privateRouters, publicRouters } from './routers';
 
 function App() {
-  const [count, setCount] = useState(0)
+  useEffect(() => {
+    getAnalytics(initializeApp(firebaseConfig));
+
+    if (!window.localStorage.getItem(LANGUAGE_KEY)) {
+      window.localStorage.setItem(LANGUAGE_KEY, LANGUAGE_VI);
+    }
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <ConfigProvider
+      locale={viLocale}
+      theme={{
+        token: {
+          colorPrimary: COLOR_PRIMARY,
+        },
+      }}
+    >
+      <AppLayout>
+        <RouterProvider router={Cookies.get(ACCESS_TOKEN_KEY) ? privateRouters : publicRouters} />
+      </AppLayout>
+    </ConfigProvider>
+  );
 }
 
-export default App
+export default App;

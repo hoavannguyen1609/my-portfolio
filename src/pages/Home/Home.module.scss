@@ -1,0 +1,94 @@
+@use '@/assets/styles/variable' as v;
+@use '@/assets/styles/mixin' as m;
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, v.$gradient-start 0%, v.$gradient-end 100%);
+
+  .btn-primary {
+    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    background: -webkit-linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    background: -moz-linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    background: -o-linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    color: v.$white;
+    padding: 0.8rem 2rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    @include m.transition(all 0.3s ease);
+
+    &:hover {
+      @include m.transform(translateY(-3px) scale(1.02));
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      opacity: 0.9;
+    }
+  }
+
+  .btn-secondary {
+    background-color: v.$white;
+    color: v.$primary-color;
+    border: 1px solid v.$primary-color;
+    padding: 0.8rem 2rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    @include m.transition(all 0.3s ease);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      @include m.transform(translateY(-3px) scale(1.02));
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      background-color: v.$light-blue;
+    }
+
+    &-light {
+      background-color: transparent;
+      color: v.$white;
+      border: 1px solid v.$white;
+      padding: 0.8rem 2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      @include m.transition(all 0.3s ease);
+
+      &:hover {
+        background-color: v.$white;
+        color: v.$primary-color;
+        @include m.transform(translateY(-3px) scale(1.02));
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      @media (max-width: v.$mobile-breakpoint) {
+        width: 100%; /* Full width buttons on mobile */
+      }
+    }
+  }
+
+  @media (max-width: v.$mobile-breakpoint) {
+    h1 {
+      font-size: 3rem;
+    }
+    p {
+      font-size: 1.25rem;
+    }
+
+    .container > div {
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+    .md\:mb-0 {
+      margin-bottom: 2.5rem;
+    }
+    .w-52 {
+      width: 12rem;
+      height: 12rem;
+    }
+    .space-x-6 {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+}
+
+.particles {
+  inset: 0;
+  z-index: 0;
+}

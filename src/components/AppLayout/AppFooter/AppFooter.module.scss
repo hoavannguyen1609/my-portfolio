@@ -1,0 +1,38 @@
+@use '@/assets/styles/mixin' as mixin;
+@use '@/assets/styles/variable' as v;
+
+.app-footer {
+  .footer-link {
+    @include mixin.transition(color 0.3s ease, transform 0.2s ease);
+    color: v.$footer-link-color;
+    display: inline;
+
+    &:hover {
+      color: v.$white;
+      @include mixin.transform(translateX(5px));
+    }
+  }
+
+  .footer-social-icon {
+    @include mixin.transition(color 0.3s ease, transform 0.2s ease);
+    font-size: 1.8rem; /* Larger social icons */
+    color: v.$footer-social-color; /* Lighter gray */
+
+    &:hover {
+      color: v.$white;
+      @include mixin.transform(translateY(-3px) scale(1.1));
+    }
+  }
+
+  @media (max-width: v.$mobile-breakpoint) {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+
+    p {
+      font-size: 0.875rem; /* Smaller  text */
+    }
+    .text-2xl {
+      font-size: 1.75rem; /* Smaller icons in footer */
+    }
+  }
+}

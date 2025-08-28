@@ -1,0 +1,16 @@
+/* Mixin cho chuyển đổi */
+@mixin transition($properties...) {
+  transition: $properties;
+  -webkit-transition: $properties;
+  -moz-transition: $properties;
+  -o-transition: $properties;
+}
+
+/* Mixin cho transform */
+@mixin transform($properties...) {
+  transform: $properties;
+  -webkit-transform: $properties;
+  -moz-transform: $properties;
+  -ms-transform: $properties;
+  -o-transform: $properties;
+}

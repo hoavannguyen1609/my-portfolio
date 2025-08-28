@@ -1,0 +1,46 @@
+[
+    {
+        "key": "skillGit",
+        "icon": "fa-brands fa-git-alt"
+    },
+    {
+        "key": "skillSourceTree",
+        "icon": "fa-brands fa-sourcetree"
+    },
+    {
+        "key": "skillFigma",
+        "icon": "fa-brands fa-figma"
+    },
+    {
+        "key": "skillAnalysis",
+        "icon": "fas fa-chart-line"
+    },
+    {
+        "key": "skillTaskDist",
+        "icon": "fas fa-tasks"
+    },
+    {
+        "key": "skillJira",
+        "icon": "fab fa-jira"
+    },
+    {
+        "key": "skillTeamwork",
+        "icon": "fas fa-users"
+    },
+    {
+        "key": "skillProblemSolving",
+        "icon": "fas fa-lightbulb"
+    },
+    {
+        "key": "skillSelfAware",
+        "icon": "fas fa-user-check"
+    },
+    {
+        "key": "skillEagerToLearn",
+        "icon": "fas fa-book-reader"
+    },
+    {
+        "key": "skillEnglish",
+        "icon": "fas fa-language"
+    }
+]

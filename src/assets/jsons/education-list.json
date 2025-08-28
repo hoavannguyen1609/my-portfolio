@@ -1,0 +1,30 @@
+[
+    {
+        "name": "eduPTITName",
+        "image": "/images/Logo-Hoc-Vien-Cong-Nghe-Buu-Chinh-Vien-Thong-PTITSimple.webp",
+        "rangeDate": "eduPTITDates",
+        "major": "eduPTITMajor",
+        "description": [
+            "eduPTITForm",
+            "eduPTITDegree"
+        ]
+    },
+    {
+        "name": "eduF8Name",
+        "image": "/images/f8-icon-lV2rGpF0.png",
+        "rangeDate": "eduF8Dates",
+        "major": "eduF8Major",
+        "description": [
+            "eduF8Desc"
+        ]
+    },
+    {
+        "name": "eduITPLUSName",
+        "image": "/images/logoITPlus.png",
+        "rangeDate": "eduITPLUSDates",
+        "major": "eduITPLUSMajor",
+        "description": [
+            "eduITPLUSDesc"
+        ]
+    }
+]
