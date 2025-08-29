@@ -502,7 +502,13 @@ const Home: FC = () => {
             {t('educationTitle')}
           </h2>
           {educationList.map((item) => (
-            <div key={item.name} className="education-card mb-8 p-8 bg-white border border-gray-100 sm:p-6 sm:mb-6">
+            <div
+              key={item.name}
+              className={clsx(
+                'mb-8 p-8 bg-white border border-gray-100 sm:p-6 sm:mb-6',
+                cssModuleClasses['education-card'],
+              )}
+            >
               <div className="flex items-center justify-between mb-3 sm:flex-row flex-col sm:items-start">
                 <div className="flex items-center w-full sm:w-auto mb-2 sm:mb-0">
                   <img
