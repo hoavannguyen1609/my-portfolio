@@ -13,7 +13,7 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
-  // base: '/new-my-portfolio/',
+  base: '/my-portfolio/',
   server: {
     host: true,
   },
