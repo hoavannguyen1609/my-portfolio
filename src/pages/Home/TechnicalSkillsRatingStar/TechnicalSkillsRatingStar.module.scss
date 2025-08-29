@@ -1,0 +1,8 @@
+@use '@/assets/styles/variable' as v;
+
+.fa-star,
+.fa-star-half-alt {
+  color: v.$gold-star; /* Gold color for stars */
+  margin-right: 0.1rem;
+  font-size: 0.9em;
+}

@@ -6,14 +6,16 @@ import { useTranslation } from 'react-i18next';
 
 import { faGlobe, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Select } from 'antd';
+import { Form, Select } from 'antd';
 
 import { LANGUAGE_EN, LANGUAGE_VI } from '@/constants';
+import { getLanguage } from '@/utils';
 
 import cssModuleClasses from './AppHeader.module.scss';
 
 const AppHeader: FC = () => {
   const { t, i18n } = useTranslation();
+  const [formLanguage] = Form.useForm();
 
   const handleChangeLanguage = (value: string): void => {
     i18n.changeLanguage(value);
@@ -28,6 +30,8 @@ const AppHeader: FC = () => {
   };
 
   useEffect((): void => {
+    formLanguage.setFieldValue('language', getLanguage());
+
     const appFooterElement = document.querySelector(`.${cssModuleClasses['app-header']}`);
 
     if (appFooterElement) {
@@ -48,6 +52,7 @@ const AppHeader: FC = () => {
         });
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -78,22 +83,35 @@ const AppHeader: FC = () => {
             </a>
           </div>
           <div className="flex items-center">
-            <Select
-              className="w-32"
-              defaultValue={LANGUAGE_VI}
-              prefix={<FontAwesomeIcon icon={faGlobe} />}
-              options={[
-                {
-                  value: LANGUAGE_VI,
-                  label: 'Việt Nam',
-                },
-                {
-                  value: LANGUAGE_EN,
-                  label: 'English',
-                },
-              ]}
-              onChange={handleChangeLanguage}
-            />
+            <Form
+              form={formLanguage}
+              initialValues={{
+                language: LANGUAGE_VI,
+              }}
+            >
+              <Form.Item
+                name="language"
+                style={{
+                  marginBottom: 0,
+                }}
+              >
+                <Select
+                  className="w-32"
+                  prefix={<FontAwesomeIcon icon={faGlobe} />}
+                  options={[
+                    {
+                      value: LANGUAGE_VI,
+                      label: 'Việt Nam',
+                    },
+                    {
+                      value: LANGUAGE_EN,
+                      label: 'English',
+                    },
+                  ]}
+                  onChange={handleChangeLanguage}
+                />
+              </Form.Item>
+            </Form>
           </div>
           {/* Mobile Menu Button */}
           <button

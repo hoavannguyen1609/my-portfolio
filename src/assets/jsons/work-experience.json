@@ -1,0 +1,25 @@
+[
+    {
+        "name": "exp84SoftName",
+        "image": "/images/logo84Soft.png",
+        "rangeDate": "exp84SoftDates",
+        "role": "exp84SoftRole",
+        "responsibility": [
+            "exp84SoftResp1",
+            "exp84SoftResp2",
+            "exp84SoftResp3",
+            "exp84SoftResp4",
+            "exp84SoftResp5"
+        ]
+    },
+    {
+        "name": "expInterITSName",
+        "image": "/images/logoInterITS.png",
+        "rangeDate": "expInterITSDates",
+        "role": "expInterITSRole",
+        "responsibility": [
+            "expInterITSResp1",
+            "expInterITSResp2"
+        ]
+    }
+]

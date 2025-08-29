@@ -3,6 +3,7 @@ import { getAnalytics } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { RouterProvider } from 'react-router';
 
 import viLocale from 'antd/locale/vi_VN';
@@ -13,12 +14,19 @@ import { ACCESS_TOKEN_KEY, COLOR_PRIMARY, LANGUAGE_KEY, LANGUAGE_VI } from './co
 import { privateRouters, publicRouters } from './routers';
 
 function App() {
+  const { i18n } = useTranslation();
+
   useEffect(() => {
     getAnalytics(initializeApp(firebaseConfig));
 
-    if (!window.localStorage.getItem(LANGUAGE_KEY)) {
+    const localLanguage = window.localStorage.getItem(LANGUAGE_KEY);
+
+    if (!localLanguage) {
       window.localStorage.setItem(LANGUAGE_KEY, LANGUAGE_VI);
+    } else {
+      i18n.changeLanguage(localLanguage);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

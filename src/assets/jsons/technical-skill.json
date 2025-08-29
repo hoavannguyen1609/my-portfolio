@@ -1,147 +1,234 @@
 [
     {
         "name": "HTML5",
-        "icon": "fab fa-html5",
+        "icon": [
+            "fab",
+            "html5"
+        ],
         "rating": 4.5
     },
     {
         "name": "CSS3",
-        "icon": "fab fa-css3-alt",
+        "icon": [
+            "fab",
+            "css3-alt"
+        ],
         "rating": 4.5
     },
     {
         "name": "JavaScript",
-        "icon": "fab fa-js-square",
+        "icon": [
+            "fab",
+            "js-square"
+        ],
         "rating": 4.5
     },
     {
         "name": "Java",
-        "icon": "fab fa-java",
+        "icon": [
+            "fab",
+            "java"
+        ],
         "rating": 4
     },
     {
         "name": "Kotlin",
-        "icon": "fa-brands fa-kickstarter-k",
+        "icon": [
+            "fab",
+            "kickstarter-k"
+        ],
         "rating": 3
     },
     {
         "name": "Php",
-        "icon": "fa-brands fa-php",
+        "icon": [
+            "fab",
+            "php"
+        ],
         "rating": 3.5
     },
     {
         "name": "TypeScript",
-        "icon": "fas fa-file-alt",
+        "icon": [
+            "fas",
+            "file-alt"
+        ],
         "rating": 4.5
     },
     {
         "name": "React.js",
-        "icon": "fab fa-react",
+        "icon": [
+            "fab",
+            "react"
+        ],
         "rating": 4.5
     },
     {
         "name": "Next.js",
-        "icon": "fab fa-react",
+        "icon": [
+            "fab",
+            "react"
+        ],
         "rating": 4
     },
     {
         "name": "Node.js",
-        "icon": "fab fa-node-js",
+        "icon": [
+            "fab",
+            "node-js"
+        ],
         "rating": 4
     },
     {
         "name": "Express.js",
-        "icon": "fas fa-server",
+        "icon": [
+            "fas",
+            "server"
+        ],
         "rating": 3.5
     },
     {
         "name": "NestJS",
-        "icon": "fas fa-server",
+        "icon": [
+            "fas",
+            "server"
+        ],
         "rating": 3.5
     },
     {
         "name": "Java Spring Boot",
-        "icon": "fas fa-leaf",
+        "icon": [
+            "fas",
+            "leaf"
+        ],
         "rating": 4
     },
     {
         "name": "JPA",
-        "icon": "fas fa-leaf",
+        "icon": [
+            "fas",
+            "leaf"
+        ],
         "rating": 4
     },
     {
         "name": "QueryDSL",
-        "icon": "fas fa-leaf",
+        "icon": [
+            "fas",
+            "leaf"
+        ],
         "rating": 3.5
     },
     {
         "name": "Laravel",
-        "icon": "fa-brands fa-laravel",
+        "icon": [
+            "fab",
+            "laravel"
+        ],
         "rating": 3
     },
     {
         "name": "MySQL",
-        "icon": "fas fa-database",
+        "icon": [
+            "fas",
+            "database"
+        ],
         "rating": 4
     },
     {
         "name": "Docker",
-        "icon": "fab fa-docker",
+        "icon": [
+            "fab",
+            "docker"
+        ],
         "rating": 3.5
     },
     {
         "name": "Web Socket",
-        "icon": "fas fa-wave-square",
+        "icon": [
+            "fas",
+            "wave-square"
+        ],
         "rating": 4
     },
     {
         "name": "RESTful API",
-        "icon": "fas fa-network-wired",
+        "icon": [
+            "fas",
+            "network-wired"
+        ],
         "rating": 4.5
     },
     {
         "name": "JWT",
-        "icon": "fas fa-shield-alt",
+        "icon": [
+            "fas",
+            "shield-alt"
+        ],
         "rating": 4
     },
     {
         "name": "Firebase",
-        "icon": "fab fa-google",
+        "icon": [
+            "fab",
+            "google"
+        ],
         "rating": 4
     },
     {
         "name": "Redux Toolkit",
-        "icon": "fas fa-toolbox",
+        "icon": [
+            "fas",
+            "toolbox"
+        ],
         "rating": 4
     },
     {
         "name": "RTK Query",
-        "icon": "fas fa-terminal",
+        "icon": [
+            "fas",
+            "terminal"
+        ],
         "rating": 4
     },
     {
         "name": "Antd",
-        "icon": "fas fa-cubes",
+        "icon": [
+            "fas",
+            "cubes"
+        ],
         "rating": 4.5
     },
     {
         "name": "MUI",
-        "icon": "fas fa-box",
+        "icon": [
+            "fas",
+            "box"
+        ],
         "rating": 4.5
     },
     {
         "name": "Scss (Sass)",
-        "icon": "fab fa-sass",
+        "icon": [
+            "fab",
+            "sass"
+        ],
         "rating": 4.5
     },
     {
         "name": "Tailwind CSS",
-        "icon": "fab fa-css3-alt",
+        "icon": [
+            "fab",
+            "css3-alt"
+        ],
         "rating": 4.5
     },
     {
         "name": "Bootstrap",
-        "icon": "fa-brands fa-bootstrap",
+        "icon": [
+            "fab",
+            "bootstrap"
+        ],
         "rating": 4.5
     }
 ]

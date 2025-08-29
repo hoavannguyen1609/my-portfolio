@@ -1,10 +1,15 @@
 [
     {
         "name": "Reavol",
-        "icon": "fa-solid fa-r text-[#33bf71]",
+        "icon": [
+            "fas",
+            "r"
+        ],
+        "iconClassname": "text-[#33bf71]",
         "company": "84Soft | Reavol",
         "role": "projReavolRole",
         "description": "projReavolDesc",
+        "teamSize": 15,
         "technologies": [
             "React",
             "Next",
@@ -18,10 +23,15 @@
     },
     {
         "name": "CakeAI",
-        "icon": "fas fa-robot text-[#33bf71]",
+        "icon": [
+            "fas",
+            "robot"
+        ],
+        "iconClassname": "text-[#33bf71]",
         "company": "84Soft",
         "role": "projCakeAIRole",
         "description": "projCakeAIDesc",
+        "teamSize": 10,
         "technologies": [
             "React",
             "Next",
@@ -36,10 +46,15 @@
     },
     {
         "name": "MyID",
-        "icon": "fas fa-id-card text-red-600",
+        "icon": [
+            "fas",
+            "id-card"
+        ],
+        "iconClassname": "text-red-600",
         "company": "84Soft | InterITS",
         "role": "projMyIDRole",
         "description": "projMyIDDesc",
+        "teamSize": 6,
         "technologies": [
             "React",
             "Next",
@@ -52,10 +67,15 @@
     },
     {
         "name": "SmartQA",
-        "icon": "fas fa-headphones-alt text-teal-600",
+        "icon": [
+            "fas",
+            "headphones-alt"
+        ],
+        "iconClassname": "text-teal-600",
         "company": "84Soft | InterITS",
         "role": "projSmartQARole",
         "description": "projSmartQADesc",
+        "teamSize": 6,
         "technologies": [
             "React",
             "Next",
@@ -68,13 +88,18 @@
     },
     {
         "name": "MeetLaw",
-        "icon": "fas fa-balance-scale text-red-600",
+        "icon": [
+            "fas",
+            "balance-scale"
+        ],
+        "iconClassname": "text-red-600",
         "company": "84Soft",
         "role": "projMeetLawRole",
         "description": "projMeetLawDesc",
+        "teamSize": 4,
         "technologies": [
             "React",
-            "NextJS",
+            "Next",
             "TypeScript",
             "Java Spring Boot",
             "MySQL",
@@ -84,46 +109,81 @@
     },
     {
         "name": "Art Contest",
-        "icon": "fas fa-paint-brush text-red-500",
+        "icon": [
+            "fas",
+            "paint-brush"
+        ],
+        "iconClassname": "text-red-500",
         "company": "84Soft | Vifolac",
         "role": "projArtContestRole",
         "description": "projArtContestDesc",
+        "teamSize": 4,
         "technologies": [
             "React",
+            "Next",
             "TypeScript",
-            "Redux Toolkit",
-            "Node.js",
+            "Java Spring Boot",
             "MySQL",
             "etc."
         ]
     },
     {
         "name": "Vtbay",
-        "icon": "fas fa-plane text-red-600",
+        "icon": [
+            "fas",
+            "plane"
+        ],
+        "iconClassname": "text-red-600",
         "company": "84Soft | Viettel Post",
         "role": "projVtbayRole",
         "description": "projVtbayDesc",
+        "teamSize": 8,
         "technologies": [
             "React",
+            "Next",
             "TypeScript",
-            "Redux Toolkit",
+            "Java Spring Boot",
+            "MySQL",
+            "AWS",
             "etc."
         ]
     },
     {
         "name": "Vegiare",
-        "icon": "fas fa-plane text-orange-600",
+        "icon": [
+            "fas",
+            "plane"
+        ],
+        "iconClassname": "text-orange-600",
         "company": "84Soft | VeGiare",
         "role": "projVegiareRole",
         "description": "projVegiareDesc",
+        "teamSize": 16,
         "technologies": [
             "React",
             "Next",
             "TypeScript",
-            "Redux Toolkit",
-            "Node.js",
-            "Express.js",
+            "Java Spring Boot",
             "MySQL",
+            "etc."
+        ]
+    },
+    {
+        "name": "HETEAC",
+        "icon": [
+            "fas",
+            "school"
+        ],
+        "iconClassname": "text-red-600",
+        "company": "84Soft | InterITS",
+        "role": "projHETEACRole",
+        "description": "projHETEADesc",
+        "teamSize": 6,
+        "technologies": [
+            "React",
+            "TypeScript",
+            "Java Spring Boot",
+            "PostgreSQL",
             "etc."
         ]
     }
