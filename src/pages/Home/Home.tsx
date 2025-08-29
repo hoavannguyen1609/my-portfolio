@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { EffectCallback, FC } from 'react';
 
 import { MoveDirection, OutMode, type Container, type ISourceOptions } from '@tsparticles/engine';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
@@ -46,6 +46,7 @@ const Home: FC = () => {
   const isDeleting = useRef<boolean>(false);
   const charIndex = useRef<number>(0);
   const textIndex = useRef<number>(0);
+  const timerId = useRef<ReturnType<typeof setTimeout>>(null);
 
   const handleIntersectionRevealElements = (): void => {
     const revealElements = document.querySelectorAll(`.${cssModuleClasses['reveal']}`);
@@ -75,7 +76,7 @@ const Home: FC = () => {
 
   function handleTypeWriter() {
     if (typingTextElement.current) {
-      const typingTextsArray = t('typingTexts');
+      const typingTextsArray = t('typingTexts', { returnObjects: true }) as string[];
 
       if (typingTextElement.current.dataset.started !== 'true') return; // Only run if initiated by observer and not paused
       const currentText = typingTextsArray[textIndex.current];
@@ -88,16 +89,16 @@ const Home: FC = () => {
       }
 
       if (!isDeleting.current && charIndex.current === currentText.length) {
-        setTimeout(() => (isDeleting.current = true), 2000);
+        timerId.current = setTimeout(() => (isDeleting.current = true), 2000);
       } else if (isDeleting.current && charIndex.current === 0) {
         isDeleting.current = false;
         textIndex.current = (textIndex.current + 1) % typingTextsArray.length;
-        setTimeout(() => handleTypeWriter(), 700);
+        timerId.current = setTimeout(() => handleTypeWriter(), 700);
         return;
       }
 
       const typingSpeed = isDeleting ? 70 : 120;
-      setTimeout(handleTypeWriter, typingSpeed);
+      timerId.current = setTimeout(handleTypeWriter, typingSpeed);
     }
   }
 
@@ -128,28 +129,6 @@ const Home: FC = () => {
       }
     }
   };
-
-  useEffect((): void => {
-    handleTypeWriter();
-    handleIntersectionRevealElements();
-    handleIntersectionHeroSection();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // this should be run only once per application lifetime
-  useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
-      // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-      // starting from v2 you can add only the features you need reducing the bundle size
-      //await loadAll(engine);
-      //await loadFull(engine);
-      await loadSlim(engine);
-      //await loadBasic(engine);
-    }).then(() => {
-      setInit(true);
-    });
-  }, []);
 
   const particlesLoaded = async (container?: Container): Promise<void> => {
     console.log(container);
@@ -277,6 +256,34 @@ const Home: FC = () => {
     [],
   );
 
+  useEffect((): void => {
+    handleTypeWriter();
+    handleIntersectionRevealElements();
+    handleIntersectionHeroSection();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // this should be run only once per application lifetime
+  useEffect((): ReturnType<EffectCallback> => {
+    initParticlesEngine(async (engine) => {
+      // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
+      // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+      // starting from v2 you can add only the features you need reducing the bundle size
+      //await loadAll(engine);
+      //await loadFull(engine);
+      await loadSlim(engine);
+      //await loadBasic(engine);
+    }).then(() => {
+      setInit(true);
+    });
+
+    return () => {
+      if (typeof timerId.current === 'number') {
+        clearTimeout(timerId.current);
+      }
+    };
+  }, []);
+
   return (
     <main>
       {/* Hero Section */}
@@ -301,7 +308,7 @@ const Home: FC = () => {
             {/* Avatar */}
             <div className="mb-10 md:mb-0 transform hover:scale-105 transition-transform duration-500">
               <img
-                src="/images/25c92c7dcbe2b7f083afc19457d07fd9_2-removebg-preview.png"
+                src="./images/25c92c7dcbe2b7f083afc19457d07fd9_2-removebg-preview.png"
                 alt="Avatar NGUYEN VAN HOA"
                 className="rounded-full border-6 border-white shadow-2xl w-52 object-cover mx-auto animate-pulse-light max-w-full h-auto"
               />

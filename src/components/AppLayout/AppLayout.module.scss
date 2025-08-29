@@ -1,0 +1,25 @@
+@use '@/assets/styles/variable' as v;
+@use '@/assets/styles/mixin' as m;
+
+.btn_back-to-top {
+  background-color: v.$primary-color;
+  padding: 1rem 1.25rem;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  @include m.transition(all 0.3s ease);
+  visibility: hidden;
+  z-index: 1000;
+  width: 3.5rem;
+  height: 3.5rem;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    @include m.transform(translateY(0));
+  }
+
+  &:hover {
+    background-color: v.$secondary-color;
+    @include m.transform(translateY(-5px) scale(1.1));
+  }
+}

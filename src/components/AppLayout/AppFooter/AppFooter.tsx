@@ -48,7 +48,7 @@ const AppFooter: FC = () => {
           <div className="w-full flex items-center justify-center mb-4">
             <a href="#" className="block">
               <img
-                src="/logo.png"
+                src="./logo.png"
                 alt="Logo"
                 className="h-24 rounded-lg object-cover border-1 border-gray-300"
                 loading="lazy"

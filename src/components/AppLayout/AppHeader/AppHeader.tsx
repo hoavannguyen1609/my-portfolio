@@ -59,7 +59,7 @@ const AppHeader: FC = () => {
     <header className={clsx('bg-white shadow-lg sticky top-0 z-50', cssModuleClasses['app-header'])}>
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
         <a href="#" className="text-3xl font-extrabold text-gray-900 tracking-wider md:text-2xl lg:text-3xl">
-          <img src="/logo.png" alt="Logo" className="h-18 object-contain" />
+          <img src="./logo.png" alt="Logo" className="h-18 object-contain" />
         </a>
         <div className="flex items-center gap-x-4 md:gap-x-8">
           <div className="hidden md:flex gap-x-8 items-center">
@@ -134,7 +134,7 @@ const AppHeader: FC = () => {
       <div className={clsx('md:hidden bg-white shadow-lg fixed', cssModuleClasses['mobile-menu'])}>
         <div className="flex items-center justify-between p-3 shadow-lg">
           <div className="w-1/3">
-            <img className="w-full object-contain" src="/logo.png" alt="Logo" loading="lazy" />
+            <img className="w-full object-contain" src="./logo.png" alt="Logo" loading="lazy" />
           </div>
           <div className="">
             <button

@@ -1,7 +1,7 @@
 [
     {
         "name": "eduPTITName",
-        "image": "/images/Logo-Hoc-Vien-Cong-Nghe-Buu-Chinh-Vien-Thong-PTITSimple.webp",
+        "image": "./images/Logo-Hoc-Vien-Cong-Nghe-Buu-Chinh-Vien-Thong-PTITSimple.webp",
         "rangeDate": "eduPTITDates",
         "major": "eduPTITMajor",
         "description": [
@@ -11,7 +11,7 @@
     },
     {
         "name": "eduF8Name",
-        "image": "/images/f8-icon-lV2rGpF0.png",
+        "image": "./images/f8-icon-lV2rGpF0.png",
         "rangeDate": "eduF8Dates",
         "major": "eduF8Major",
         "description": [
@@ -20,7 +20,7 @@
     },
     {
         "name": "eduITPLUSName",
-        "image": "/images/logoITPlus.png",
+        "image": "./images/logoITPlus.png",
         "rangeDate": "eduITPLUSDates",
         "major": "eduITPLUSMajor",
         "description": [
