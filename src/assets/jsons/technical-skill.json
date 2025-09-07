@@ -56,7 +56,7 @@
         "rating": 4.5
     },
     {
-        "name": "React.js",
+        "name": "React",
         "icon": [
             "fab",
             "react"
@@ -64,12 +64,28 @@
         "rating": 4.5
     },
     {
-        "name": "Next.js",
+        "name": "Next",
         "icon": [
             "fab",
             "react"
         ],
         "rating": 4
+    },
+    {
+        "name": "Vue",
+        "icon": [
+            "fab",
+            "vuejs"
+        ],
+        "rating": 3
+    },
+    {
+        "name": "Angular",
+        "icon": [
+            "fab",
+            "angular"
+        ],
+        "rating": 2
     },
     {
         "name": "Node.js",
@@ -230,5 +246,13 @@
             "bootstrap"
         ],
         "rating": 4.5
+    },
+    {
+        "name": "Swagger",
+        "icon": [
+            "fas",
+            "code"
+        ],
+        "rating": 3.5
     }
 ]

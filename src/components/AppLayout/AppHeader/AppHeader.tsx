@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 
 import { clsx } from 'clsx';
 import { useEffect } from 'react';
@@ -26,6 +26,17 @@ const AppHeader: FC = () => {
 
     if (mobileMenuElement) {
       mobileMenuElement.classList.toggle(cssModuleClasses['show']);
+    }
+  };
+
+  const handleSelectMobileMenu = (e: MouseEvent<HTMLLIElement>): void => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const mobileMenuElement = document.querySelector(`.${cssModuleClasses['mobile-menu']}`);
+
+    if (mobileMenuElement && mobileMenuElement.classList.contains(cssModuleClasses['show'])) {
+      mobileMenuElement.classList.remove(cssModuleClasses['show']);
     }
   };
 
@@ -150,32 +161,32 @@ const AppHeader: FC = () => {
         </div>
         <div className="p-3 overflow-hidden">
           <ul className={clsx('flex flex-col items-start gap-y-2', cssModuleClasses['mobile-menu__list'])}>
-            <li className="w-full">
+            <li onClick={handleSelectMobileMenu} className="w-full">
               <a href="#about" className="block px-3 py-3 text-gray-800 hover:bg-gray-100 transition duration-300">
                 {t('navAbout', 'Về tôi')}
               </a>
             </li>
-            <li className="w-full">
+            <li onClick={handleSelectMobileMenu} className="w-full">
               <a href="#skills" className="block px-3 py-3 text-gray-800 hover:bg-gray-100 transition duration-300">
                 {t('navSkills', 'Kỹ năng')}
               </a>
             </li>
-            <li className="w-full">
+            <li onClick={handleSelectMobileMenu} className="w-full">
               <a href="#experience" className="block px-3 py-3 text-gray-800 hover:bg-gray-100 transition duration-300">
                 {t('navExperience', 'Kinh nghiệm')}
               </a>
             </li>
-            <li className="w-full">
+            <li onClick={handleSelectMobileMenu} className="w-full">
               <a href="#education" className="block px-3 py-3 text-gray-800 hover:bg-gray-100 transition duration-300">
                 {t('navEducation', 'Học vấn')}
               </a>
             </li>
-            <li className="w-full">
+            <li onClick={handleSelectMobileMenu} className="w-full">
               <a href="#projects" className="block px-3 py-3 text-gray-800 hover:bg-gray-100 transition duration-300">
                 {t('navProjects', 'Dự án')}
               </a>
             </li>
-            <li className="w-full">
+            <li onClick={handleSelectMobileMenu} className="w-full">
               <a href="#contact" className="block px-3 py-3 text-gray-800 hover:bg-gray-100 transition duration-300">
                 Liên hệ
               </a>
