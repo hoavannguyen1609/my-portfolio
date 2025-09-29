@@ -7,6 +7,13 @@
         ]
     },
     {
+        "key": "skillTortoiseSVN",
+        "icon": [
+            "fab",
+            "code-compare"
+        ]
+    },
+    {
         "key": "skillSourceTree",
         "icon": [
             "fab",
