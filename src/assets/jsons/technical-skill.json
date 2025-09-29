@@ -123,6 +123,14 @@
         "name": "JPA",
         "icon": [
             "fas",
+            "sitemap"
+        ],
+        "rating": 4
+    },
+    {
+        "name": "Microservice",
+        "icon": [
+            "fas",
             "leaf"
         ],
         "rating": 4
@@ -150,6 +158,14 @@
             "database"
         ],
         "rating": 4
+    },
+    {
+        "name": "Oracle",
+        "icon": [
+            "fas",
+            "database"
+        ],
+        "rating": 3
     },
     {
         "name": "Docker",
