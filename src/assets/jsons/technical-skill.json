@@ -123,7 +123,7 @@
         "name": "JPA",
         "icon": [
             "fas",
-            "sitemap"
+            "leaf"
         ],
         "rating": 4
     },
@@ -131,7 +131,7 @@
         "name": "Microservice",
         "icon": [
             "fas",
-            "leaf"
+            "sitemap"
         ],
         "rating": 3
     },
