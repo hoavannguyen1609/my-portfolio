@@ -413,7 +413,7 @@ const Home: FC = () => {
                 <li className="flex items-center">
                   <FontAwesomeIcon icon={faC} className="mr-3 text-purple-500" />
                   <a
-                    href="https://www.canva.com/design/DAGQWMp6X5A/qvXBKMGcsHpvA_VZhiwS4w/edit?utm_content=DAGQWMp6X5A&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
+                    href="https://www.canva.com/design/DAG1Hhk44VU/13gqOd_T-GT_GzKYeFkGwQ/edit?utm_content=DAG1Hhk44VU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
                     target="_blank"
                     className="text-blue-600 hover:underline"
                     rel="noopener noreferrer"
