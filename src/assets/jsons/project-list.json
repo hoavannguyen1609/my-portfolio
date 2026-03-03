@@ -1,5 +1,74 @@
 [
     {
+        "name": "THADS-eTCTHA",
+        "icon": [
+            "fas",
+            "file-circle-check"
+        ],
+        "iconClassname": "text-[#b80000]",
+        "company": "FIS - BIT",
+        "role": "projectTHADSeTCTHARole",
+        "description": "projectTHADSeTCTHADesc",
+        "teamSize": "30+",
+        "technologies": [
+            "Angular",
+            "Java Spring Boot",
+            "Microservice",
+            "Kafka",
+            "Redis",
+            "Elastic Search",
+            "MySQL",
+            "AWS",
+            "etc."
+        ]
+    },
+    {
+        "name": "eDLM",
+        "icon": [
+            "fab",
+            "instalod"
+        ],
+        "iconClassname": "text-[#00b8d9]",
+        "company": "FIS - BIT",
+        "role": "projecteDLMRole",
+        "description": "projecteDLMDesc",
+        "teamSize": "30+",
+        "technologies": [
+            "Angular",
+            "Java Spring Boot",
+            "Microservice",
+            "Kafka",
+            "Redis",
+            "Elastic Search",
+            "MySQL",
+            "AWS",
+            "etc."
+        ]
+    },
+    {
+        "name": "eTask",
+        "icon": [
+            "fas",
+            "list-check"
+        ],
+        "iconClassname": "text-[#00b8d9]",
+        "company": "FIS - BIT",
+        "role": "projecteTaskRole",
+        "description": "projecteTaskDesc",
+        "teamSize": "30+",
+        "technologies": [
+            "Angular",
+            "Java Spring Boot",
+            "Microservice",
+            "Kafka",
+            "Redis",
+            "Elastic Search",
+            "MySQL",
+            "AWS",
+            "etc."
+        ]
+    },
+    {
         "name": "Reavol",
         "icon": [
             "fas",

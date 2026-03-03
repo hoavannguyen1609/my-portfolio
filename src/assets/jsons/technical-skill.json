@@ -85,7 +85,7 @@
             "fab",
             "angular"
         ],
-        "rating": 2
+        "rating": 3
     },
     {
         "name": "Node.js",
@@ -136,10 +136,26 @@
         "rating": 3
     },
     {
+        "name": "Redis",
+        "icon": [
+            "fas",
+            "database"
+        ],
+        "rating": 3.5
+    },
+    {
         "name": "QueryDSL",
         "icon": [
             "fas",
             "leaf"
+        ],
+        "rating": 3.5
+    },
+    {
+        "name": "Elastic Search",
+        "icon": [
+            "fas",
+            "database"
         ],
         "rating": 3.5
     },

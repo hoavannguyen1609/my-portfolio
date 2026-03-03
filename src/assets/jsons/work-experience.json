@@ -1,5 +1,17 @@
 [
     {
+        "name": "expFISName",
+        "image": "./images/logoFIS.webp",
+        "rangeDate": "expFISDates",
+        "role": "expFISRole",
+        "responsibility": [
+            "expFISResp1",
+            "expFISResp2",
+            "expFISResp3",
+            "expFISResp4"
+        ]
+    },
+    {
         "name": "exp84SoftName",
         "image": "./images/logo84Soft.png",
         "rangeDate": "exp84SoftDates",
