@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <title>Nguyễn Văn Hòa · Backend Developer</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Nguyễn Văn Hòa – Backend / Full-stack Developer: Java Spring Boot, Microservices, Kafka, Elasticsearch. Hệ thống chính phủ số eDLM, eTask, THADS-eTCTHA (Bộ Tư pháp).">
+  <meta name="theme-color" content="#070b14">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Nguyễn Văn Hòa · Backend Developer">
+  <meta property="og:description" content="Java Spring Boot · Microservices · Kafka · Elasticsearch. Hệ thống chính phủ số eDLM, eTask, THADS-eTCTHA.">
+  <meta property="og:image" content="https://hoavannguyen1609.github.io/my-portfolio/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <script>
+    // Đặt theme trước khi Angular chạy để không nháy màu
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('nvh-theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body>
+  <app-root></app-root>
+  <noscript>
+    <main style="font-family:system-ui;padding:2rem;max-width:40rem;margin:auto;line-height:1.6">
+      <h1>Nguyễn Văn Hòa</h1>
+      <p>Backend Developer · Java Spring Boot · Microservices · Kafka · Elasticsearch.</p>
+      <p>Email: hoavannguyen1609@gmail.com · Điện thoại: +84 876 160 901</p>
+    </main>
+  </noscript>
+</body>
+</html>

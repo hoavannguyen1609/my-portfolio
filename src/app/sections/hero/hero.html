@@ -1,0 +1,111 @@
+<section #section id="top" class="relative isolate flex min-h-[100svh] items-center overflow-hidden pb-20 pt-32">
+  <app-mesh-canvas />
+  <div class="bg-grid absolute inset-0 -z-20 opacity-80"></div>
+  <div class="pointer-events-none absolute -left-48 top-1/4 -z-20 size-[560px] rounded-full bg-seal/20 blur-[130px]"></div>
+  <div class="pointer-events-none absolute -right-40 bottom-0 -z-20 size-[520px] rounded-full bg-jade/15 blur-[140px]"></div>
+  <div class="pointer-events-none absolute inset-0 -z-[5] bg-gradient-to-r from-bg via-bg/75 to-bg/10 max-lg:via-bg/80"></div>
+
+  <div #content class="relative mx-auto grid w-full max-w-6xl gap-14 px-[max(16px,env(safe-area-inset-left))] lg:grid-cols-[1.25fr_.85fr] lg:items-center">
+    <div class="min-w-0">
+      <div data-intro class="glass inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 text-xs font-medium">
+        <span class="relative flex size-2">
+          <span class="absolute inset-0 animate-pulse-ring rounded-full bg-jade"></span>
+          <span class="relative size-2 rounded-full bg-jade"></span>
+        </span>
+        {{ i18n.t(hero.available) }}
+      </div>
+
+      <p data-intro class="eyebrow mt-7">{{ i18n.t(hero.eyebrow) }}</p>
+
+      <h1 class="mt-3 font-display text-[clamp(3.2rem,10vw,7.6rem)] font-extrabold leading-[0.95] tracking-[-0.045em]">
+        <span class="block" [appSplit]="'Nguyễn Văn'" splitBy="chars" splitTrigger="intro"></span>
+        <span class="block text-seal" [appSplit]="'Hòa.'" splitBy="chars" splitTrigger="intro" [splitDelay]="0.28"></span>
+      </h1>
+
+      <div data-intro class="mt-6 flex items-center gap-3 font-mono text-base sm:text-xl">
+        <span class="text-seal">~/</span>
+        <span #role class="text-fg">{{ hero.roles[0] }}</span>
+        <span class="h-5 w-[2px] animate-pulse bg-jade"></span>
+      </div>
+
+      <p data-intro class="mt-6 max-w-xl text-lg leading-relaxed text-muted">{{ i18n.t(hero.lead) }}</p>
+
+      <div data-intro class="mt-9 flex flex-wrap gap-3">
+        <a appMagnetic href="#work" class="btn btn-primary" data-cursor="Go">
+          {{ i18n.t(hero.ctaWork) }}<svg lucideArrowUpRight [size]="18"></svg>
+        </a>
+        <a appMagnetic href="#contact" class="btn">{{ i18n.t(hero.ctaContact) }}</a>
+        <a appMagnetic [href]="profile.cv" target="_blank" rel="noopener" class="btn">
+          <svg lucideFileText [size]="16"></svg>{{ i18n.t(hero.cv) }}
+        </a>
+      </div>
+
+      <dl data-intro class="mt-12 grid max-w-lg grid-cols-3 gap-4 border-t border-line pt-6">
+        @for (s of stats; track s.label) {
+          <div class="min-w-0">
+            <dt class="sr-only">{{ i18n.t(s.label) }}</dt>
+            <dd class="font-display text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold leading-none tabular-nums" [appCountUp]="s.value" [countSuffix]="s.suffix" countTrigger="intro"></dd>
+            <dd class="mt-2 text-xs leading-snug text-muted sm:text-sm" aria-hidden="true">{{ i18n.t(s.label) }}</dd>
+          </div>
+        }
+      </dl>
+    </div>
+
+    <!-- Phiếu trình: luồng văn bản chạy qua từng bước rồi đóng dấu -->
+    <aside #card appSpotlight [tilt]="9" class="glass relative min-w-0 overflow-hidden rounded-3xl p-6 shadow-[0_40px_120px_-40px_rgba(0,0,0,.7)] sm:p-7" [attr.aria-label]="i18n.t(slip.kind)">
+      <div class="absolute inset-x-0 top-0 h-1 bg-[repeating-linear-gradient(90deg,var(--seal)_0_18px,transparent_18px_28px)] opacity-80"></div>
+
+      <div class="flex items-start justify-between gap-4 border-b border-dashed border-line pb-5">
+        <div>
+          <p class="eyebrow">{{ i18n.t(slip.kind) }}</p>
+          <p class="mt-2 font-mono text-sm">{{ slip.number }}</p>
+        </div>
+        @if (!avatarFailed()) {
+          <img [src]="profile.avatar" [alt]="profile.name" width="64" height="64" (error)="avatarFailed.set(true)" class="size-16 rounded-2xl border border-line bg-surface-2 object-cover" />
+        } @else {
+          <div class="grid size-16 place-items-center rounded-2xl border border-line bg-surface-2 font-display text-lg font-bold text-muted" aria-hidden="true">NVH</div>
+        }
+      </div>
+
+      <dl class="my-5 grid grid-cols-[auto_minmax(0,1fr)] gap-x-5 gap-y-2.5 text-sm">
+        @for (f of slip.fields; track $index) {
+          <dt class="pt-0.5 font-mono text-[11px] uppercase tracking-wider text-muted">{{ i18n.t(f.k) }}</dt>
+          <dd class="font-medium">{{ i18n.t(f.v) }}</dd>
+        }
+      </dl>
+
+      <ol class="grid max-w-[calc(100%-6.5rem)] gap-1.5">
+        @for (s of slip.flow; track $index) {
+          <li
+            [attr.data-state]="stateOf($index)"
+            class="group flex items-center gap-3 rounded-xl px-3 py-2 text-sm text-muted transition-all duration-300 data-[state=active]:bg-jade/10 data-[state=active]:text-fg data-[state=done]:text-fg"
+          >
+            <span class="relative grid size-4 shrink-0 place-items-center rounded-full border-[1.5px] border-line transition-all duration-300 group-data-[state=active]:border-jade group-data-[state=active]:shadow-[0_0_0_5px_var(--glow-jade)] group-data-[state=done]:border-jade group-data-[state=done]:bg-jade"></span>
+            <span class="truncate">{{ i18n.t(s) }}</span>
+            <span class="ml-auto font-mono text-[10px] opacity-60">0{{ $index + 1 }}</span>
+          </li>
+        }
+      </ol>
+
+      <button type="button" (click)="playFlow()" class="mt-4 inline-flex items-center gap-1.5 font-mono text-[11px] text-muted underline-offset-4 hover:text-fg hover:underline">
+        <svg lucideRotateCcw [size]="12"></svg>{{ i18n.lang() === 'vi' ? 'Chạy lại luồng' : 'Replay workflow' }}
+      </button>
+
+      <div #seal class="pointer-events-none absolute bottom-5 right-5 grid size-28 -rotate-[14deg] place-items-center rounded-full border-[3px] border-double border-seal text-seal" aria-hidden="true">
+        <svg class="absolute inset-0 size-full" viewBox="0 0 120 120">
+          <defs><path id="seal-ring" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" /></defs>
+          <text class="fill-current font-mono" font-size="9.5" letter-spacing="2">
+            <textPath href="#seal-ring" textLength="272" lengthAdjust="spacing">{{ i18n.t(slip.seal) }}</textPath>
+          </text>
+        </svg>
+        <span class="font-display text-xl font-extrabold">NVH</span>
+      </div>
+    </aside>
+  </div>
+
+  <button type="button" (click)="scrollNext()" class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-muted md:flex" data-intro>
+    {{ i18n.t(hero.scroll) }}
+    <span class="relative h-10 w-px overflow-hidden bg-line"><span class="absolute inset-x-0 top-0 h-1/2 animate-[scroll-cue_1.8s_ease-in-out_infinite] bg-seal"></span></span>
+    <svg lucideArrowDown [size]="14" class="sr-only"></svg>
+  </button>
+</section>

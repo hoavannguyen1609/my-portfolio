@@ -1,0 +1,291 @@
+@import "tailwindcss";
+
+/* Theme dùng attribute data-theme trên <html>; script trong index.html đặt giá trị trước khi app chạy */
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
+:root,
+:root[data-theme="dark"] {
+  --bg: #070b14;
+  --bg-2: #0a111e;
+  --surface: #0f1828;
+  --surface-2: #152139;
+  --fg: #e8ecf3;
+  --muted: #8e9ab0;
+  --line: rgb(148 163 184 / 0.16);
+  --seal: #ff4d5e;
+  --jade: #2ee6c5;
+  --glow-seal: rgb(255 77 94 / 0.32);
+  --glow-jade: rgb(46 230 197 / 0.22);
+  --grain-opacity: 0.06;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #f2f4f8;
+  --bg-2: #e8ecf2;
+  --surface: #ffffff;
+  --surface-2: #f5f7fb;
+  --fg: #0b1322;
+  --muted: #4f5b70;
+  --line: rgb(15 23 42 / 0.12);
+  --seal: #d81e33;
+  --jade: #0a8f7a;
+  --glow-seal: rgb(216 30 51 / 0.18);
+  --glow-jade: rgb(10 143 122 / 0.16);
+  --grain-opacity: 0.035;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-seal: var(--seal);
+  --color-jade: var(--jade);
+
+  --font-display: "Bricolage Grotesque", "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.7; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--seal);
+    color: #fff;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+  :focus-visible {
+    outline: 2px solid var(--jade);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  img { max-width: 100%; }
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+@layer components {
+/* Lớp nhiễu hạt phủ toàn trang */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 75%);
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--fg);
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--fg) 20%, var(--seal) 55%, var(--jade) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glass {
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid var(--line);
+}
+
+/* Spotlight theo con trỏ: directive appSpotlight đặt --mx/--my */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.35s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--glow-seal), transparent 60%);
+}
+.spotlight:hover::before { opacity: 1; }
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), var(--seal), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.spotlight:hover::after { opacity: 1; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1;
+  padding: 0.5rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface-2) 70%, transparent);
+  color: var(--fg);
+  white-space: nowrap;
+}
+.chip-hot {
+  border-color: color-mix(in srgb, var(--jade) 55%, transparent);
+  color: var(--jade);
+  background: color-mix(in srgb, var(--jade) 10%, transparent);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.9rem 1.35rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--fg);
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  transition: border-color 0.25s, background 0.25s, color 0.25s;
+  will-change: transform;
+}
+.btn:hover { border-color: var(--fg); }
+.btn-primary {
+  background: var(--seal);
+  border-color: var(--seal);
+  color: #fff;
+  box-shadow: 0 10px 40px -10px var(--glow-seal);
+}
+.btn-primary:hover { background: color-mix(in srgb, var(--seal) 85%, #fff); border-color: transparent; }
+
+/* Khung nội dung chung với lề an toàn hai bên */
+.wrap {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 72rem;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+}
+
+/* SplitText: mặt nạ dòng không cắt dấu tiếng Việt */
+.split-line { padding-block: 0.08em; margin-block: -0.08em; }
+
+/* Đổi theme bằng View Transitions: vòng tròn lan từ điểm bấm */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Con trỏ tuỳ biến chỉ bật khi thiết bị có chuột */
+@media (pointer: fine) {
+  html.has-cursor, html.has-cursor a, html.has-cursor button { cursor: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.tl-dot.is-on {
+  border-color: var(--seal);
+  background: var(--seal);
+  box-shadow: 0 0 0 6px var(--glow-seal);
+}
+
+@keyframes scroll-cue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+@keyframes nudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+/* animate.enter / animate.leave của Angular */
+.menu-in { animation: menu-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.menu-out { animation: menu-in 0.3s cubic-bezier(0.4, 0, 1, 1) reverse both; }
+@keyframes menu-in {
+  from { opacity: 0; clip-path: inset(0 0 100% 0); }
+  to { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+.menu-link { animation: menu-link 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes menu-link {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: none; }
+}
+.toast-in { animation: toast-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.toast-out { animation: toast-in 0.25s ease-in reverse both; }
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
