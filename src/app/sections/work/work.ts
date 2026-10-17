@@ -77,6 +77,14 @@ export class Work {
               },
             });
 
+            // Panel xoay quanh trục Y như băng chuyền: vào từ phải nghiêng sâu, thẳng ở giữa, ra bên trái
+            panels.slice(1).forEach((panel) => {
+              gsap
+                .timeline({ scrollTrigger: { trigger: panel, containerAnimation: horizontal, start: 'left right', end: 'right left', scrub: true } })
+                .fromTo(panel, { rotateY: -32, z: -320, opacity: 0.35 }, { rotateY: 0, z: 0, opacity: 1, ease: 'power2.out', duration: 1 })
+                .to(panel, { rotateY: 26, z: -260, opacity: 0.4, ease: 'power2.in', duration: 1 });
+            });
+
             for (const panel of panels) {
               gsap.from(panel.querySelectorAll('[data-pop]'), {
                 y: 50,

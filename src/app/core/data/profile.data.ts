@@ -22,6 +22,9 @@ import {
   LucideUsers,
   LucideWrench,
   LucideCalendar,
+  LucideNetwork,
+  LucidePlug,
+  LucideWorkflow,
 } from '@lucide/angular';
 import {
   CaseStudy,
@@ -29,7 +32,6 @@ import {
   Education,
   Job,
   NavItem,
-  Note,
   Project,
   ProjectKind,
   SkillGroup,
@@ -46,7 +48,8 @@ export const PROFILE = {
   phoneHref: 'tel:+84876160901',
   zalo: 'https://zalo.me/+84941470529',
   gitlab: 'https://gitlab.com/NguyenVanHoa160901',
-  cv: 'https://www.canva.com/design/DAG1Hhk44VU/13gqOd_T-GT_GzKYeFkGwQ/edit?utm_content=DAG1Hhk44VU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton',
+  /** CV PDF theo ngôn ngữ, sinh bằng node cv/build-cv.mjs; đường dẫn tương đối để theo base-href */
+  cv: { vi: 'cv/CV-Nguyen-Van-Hoa-VI.pdf', en: 'cv/CV-Nguyen-Van-Hoa-EN.pdf' } as Txt,
   /** Ảnh đại diện: đặt file vào public/images/avatar.png để dùng ảnh trong repo */
   avatar: 'https://hoavannguyen1609.github.io/my-portfolio/images/25c92c7dcbe2b7f083afc19457d07fd9_2-removebg-preview.png',
 };
@@ -56,7 +59,7 @@ export const NAV: NavItem[] = [
   { id: 'skills', label: { vi: 'Năng lực', en: 'Skills' } },
   { id: 'experience', label: { vi: 'Kinh nghiệm', en: 'Experience' } },
   { id: 'work', label: { vi: 'Dự án', en: 'Work' } },
-  { id: 'notes', label: { vi: 'Ghi chép', en: 'Notes' } },
+  { id: 'integration', label: { vi: 'Tích hợp', en: 'Integration' } },
   { id: 'contact', label: { vi: 'Liên hệ', en: 'Contact' } },
 ];
 
@@ -106,8 +109,8 @@ export const SLIP = {
 
 export const MARQUEE: string[] = [
   'Java', 'Spring Boot', 'Kafka', 'Elasticsearch', 'MySQL', 'Redis', 'QueryDSL', 'Liquibase',
-  'Microservices', 'JHipster', 'OpenFeign', 'AWS S3', 'Docker', 'Angular', 'React', 'Next.js',
-  'TypeScript', 'NestJS', 'Node.js', 'Tailwind CSS',
+  'Microservices', 'JHipster', 'OpenFeign', 'Spring Cloud', 'OAuth2', 'Hazelcast', 'AWS S3', 'Docker',
+  'Outbox · Saga', 'PDFBox', 'Angular', 'React', 'Next.js', 'TypeScript', 'GSAP', 'Three.js',
 ];
 
 export const ABOUT = {
@@ -140,38 +143,84 @@ export const CONTACTS: ContactItem[] = [
 export const SKILLS_HEAD = {
   label: { vi: 'Năng lực', en: 'Skills' } as Txt,
   title: { vi: 'Bộ công cụ tôi dùng hằng ngày', en: 'The toolkit I use every day' } as Txt,
-  note: { vi: 'Thẻ phát sáng là công nghệ dùng trong công việc hiện tại.', en: 'Glowing chips are what I use in my current role.' } as Txt,
+  note: {
+    vi: 'Thẻ phát sáng là công nghệ dùng trong công việc hiện tại ở FPT IS.',
+    en: 'Glowing chips are what I use in my current role at FPT IS.',
+  } as Txt,
+  sphereHint: { vi: 'Kéo để xoay · rê chuột để dừng', en: 'Drag to spin · hover to pause' } as Txt,
+  total: { vi: 'công nghệ & kỹ năng', en: 'technologies & skills' } as Txt,
 };
 
 export const SKILLS: SkillGroup[] = [
   {
     icon: LucideServer,
-    title: 'Backend',
-    code: 'server',
-    wide: true,
-    items: ['Java', 'Spring Boot', 'JPA / Hibernate', 'QueryDSL', 'Microservices', 'JHipster', 'Liquibase', 'OpenFeign · OAuth2', 'RESTful API', 'Kotlin', 'Node.js', 'NestJS', 'Express.js', 'PHP · Laravel', 'JWT', 'WebSocket'],
-    hot: ['Java', 'Spring Boot', 'JPA / Hibernate', 'QueryDSL', 'Microservices', 'JHipster', 'Liquibase', 'OpenFeign · OAuth2', 'RESTful API'],
+    title: 'Java & Spring',
+    code: 'backend',
+    items: ['Java 11', 'Spring Boot', 'Spring Data JPA', 'Hibernate', 'QueryDSL', 'MapStruct', 'Lombok', 'Liquibase', 'Spring Security', 'OAuth2 · JWT', 'Spring WebFlux · WebClient', 'Spring Retry', 'Quartz Scheduler', 'Kotlin', 'RESTful API'],
+    hot: ['Java 11', 'Spring Boot', 'Spring Data JPA', 'Hibernate', 'QueryDSL', 'MapStruct', 'Lombok', 'Liquibase', 'Spring Security', 'OAuth2 · JWT', 'Spring WebFlux · WebClient', 'Quartz Scheduler', 'RESTful API'],
+  },
+  {
+    icon: LucideNetwork,
+    title: { vi: 'Microservices & Spring Cloud', en: 'Microservices & Spring Cloud' },
+    code: 'cloud',
+    items: ['JHipster', 'Eureka · Registry', 'Spring Cloud Config', 'OpenFeign', 'Hystrix · Ribbon', 'API Gateway', 'Spring Kafka', 'Micrometer · Prometheus', 'Logstash Logback'],
+    hot: ['JHipster', 'Eureka · Registry', 'Spring Cloud Config', 'OpenFeign', 'API Gateway', 'Spring Kafka'],
+  },
+  {
+    icon: LucideWorkflow,
+    title: { vi: 'Kiến trúc & mẫu thiết kế', en: 'Architecture & patterns' },
+    code: 'patterns',
+    items: [
+      'Event-driven',
+      'Transactional Outbox',
+      'Saga',
+      { vi: 'Khoá lạc quan @Version', en: 'Optimistic locking @Version' },
+      { vi: 'Ghi sau commit', en: 'After-commit hooks' },
+      'Async executor · DeferredResult',
+      { vi: 'Truy vấn sẵn sàng sharding', en: 'Sharding-ready queries' },
+      { vi: 'Phân quyền dữ liệu ACL', en: 'Data-level ACL' },
+    ],
+    hot: ['Event-driven', 'Transactional Outbox', 'Saga', 'Async executor · DeferredResult'],
   },
   {
     icon: LucideDatabase,
-    title: { vi: 'Dữ liệu & tích hợp', en: 'Data & integration' },
+    title: { vi: 'Dữ liệu & tìm kiếm', en: 'Data & search' },
     code: 'data',
-    items: ['Kafka', 'Elasticsearch', 'MySQL', 'Redis', 'AWS S3', 'Oracle', 'PostgreSQL', 'Firebase', 'Socket.IO', 'OpenAI API'],
-    hot: ['Kafka', 'Elasticsearch', 'MySQL', 'Redis', 'AWS S3'],
+    items: ['MySQL 5.7 / 8', 'Elasticsearch 7', 'Kafka', 'Redis', 'Hazelcast', 'Vitess', 'AWS S3', 'Oracle', 'PostgreSQL', 'Firebase'],
+    hot: ['MySQL 5.7 / 8', 'Elasticsearch 7', 'Kafka', 'Redis', 'AWS S3'],
+  },
+  {
+    icon: LucidePlug,
+    title: { vi: 'Tích hợp & tài liệu', en: 'Integration & documents' },
+    code: 'integration',
+    items: [
+      { vi: 'Trục liên thông VDXP · edXML', en: 'National axis VDXP · edXML' },
+      { vi: 'Ký số · đóng dấu', en: 'Digital signing · stamping' },
+      'C06 · VNeID',
+      'MISA',
+      { vi: 'Biên lai điện tử', en: 'E-receipts' },
+      'AI OCR · QR',
+      'PDFBox',
+      'JAXB · XML',
+      'Apache POI',
+      'JasperReports',
+      'OpenAI API',
+    ],
+    hot: ['C06 · VNeID', 'MISA', 'AI OCR · QR', 'PDFBox', 'JAXB · XML'],
   },
   {
     icon: LucideLayoutDashboard,
     title: 'Frontend',
     code: 'client',
-    items: ['TypeScript', 'JavaScript', 'React', 'Next.js', 'Angular', 'Vue', 'Redux Toolkit', 'RTK Query', 'Ant Design', 'MUI', 'Tailwind CSS', 'SCSS', 'Bootstrap', 'HTML5', 'CSS3'],
+    items: ['TypeScript', 'JavaScript', 'Angular · Signals', 'React', 'Next.js', 'Vue', 'Redux Toolkit', 'RTK Query', 'Tailwind CSS', 'GSAP', 'Three.js', 'Ant Design', 'MUI', 'SCSS', 'Bootstrap', 'Node.js', 'NestJS', 'Express.js', 'PHP · Laravel', 'Socket.IO'],
     hot: [],
   },
   {
     icon: LucideWrench,
-    title: { vi: 'Công cụ', en: 'Tooling' },
+    title: { vi: 'Công cụ & vận hành', en: 'Tooling & ops' },
     code: 'ops',
-    items: ['Git', 'GitLab', 'Docker', 'Postman', 'Swagger', 'Jira', 'SourceTree', 'TortoiseSVN', 'Figma'],
-    hot: ['Git', 'GitLab', 'Docker', 'Postman'],
+    items: ['Git · GitLab', 'Maven', 'Docker', 'Postman · Postman CLI', 'Swagger · OpenAPI', 'Jira', 'SourceTree', 'TortoiseSVN', 'Figma', 'Claude Code'],
+    hot: ['Git · GitLab', 'Maven', 'Docker', 'Postman · Postman CLI', 'Swagger · OpenAPI', 'Claude Code'],
   },
   {
     icon: LucideUsers,
@@ -181,6 +230,7 @@ export const SKILLS: SkillGroup[] = [
       { vi: 'Phân tích & ước tính', en: 'Analysis & estimation' },
       { vi: 'Phân bổ công việc', en: 'Task allocation' },
       { vi: 'Dẫn dắt đội Frontend', en: 'Frontend team lead' },
+      { vi: 'Viết tài liệu bàn giao', en: 'Hand-over docs' },
       { vi: 'Làm việc nhóm', en: 'Teamwork' },
       { vi: 'Giải quyết vấn đề', en: 'Problem solving' },
       { vi: 'Tự giác', en: 'Self-driven' },
@@ -320,39 +370,60 @@ export const PROJECTS: Project[] = [
   { name: 'HETEAC', icon: LucideHeartPulse, org: '84Soft · InterITS', role: 'Frontend Developer', description: { vi: 'Hệ thống chi trả của Viện Nghiên cứu Khoa học Sức khỏe, Hội Quân dân Y Việt Nam.', en: 'Payment system for the Health Science Research Institute, Vietnam Military-Civilian Medical Association.' }, stack: 'React · TypeScript · Spring Boot · PostgreSQL', kinds: [] },
 ];
 
-export const NOTES_HEAD = {
-  label: { vi: 'Ghi chép kỹ thuật', en: 'Engineering notes' } as Txt,
-  title: { vi: 'Bài học từ hệ thống lớn', en: 'Lessons from large systems' } as Txt,
-  codeCaption: { vi: 'Minh hoạ mẫu ghi sau commit, rút gọn từ cách làm trong eDLM.', en: 'The after-commit pattern, simplified from eDLM.' } as Txt,
-};
-
-export const NOTES: Note[] = [
-  { topic: { vi: 'Giao dịch', en: 'Transactions' }, title: { vi: 'Ghi sau commit cần giao dịch riêng', en: 'After-commit writes need their own transaction' }, text: { vi: 'Listener afterCommit chạy khi giao dịch cũ đã đóng. Ghi nhật ký ở đó bằng REQUIRES_NEW, nếu không bản ghi mất mà không báo lỗi.', en: 'An afterCommit listener runs after the original transaction closed. Use REQUIRES_NEW there, or the row is silently lost.' } },
-  { topic: { vi: 'Bản tin', en: 'Messaging' }, title: { vi: 'Không phát bản tin khi dữ liệu chưa chắc', en: 'Never publish before data is final' }, text: { vi: 'Đồng bộ eTask đi qua outbox: phát sau commit, lưu cả request lẫn response để đối soát và gửi lại.', en: 'eTask sync goes through an outbox: publish after commit, keep request and response for reconciliation.' } },
-  { topic: { vi: 'Tìm kiếm', en: 'Search' }, title: { vi: 'Đọc ngay sau ghi thì đọc CSDL', en: 'Read-after-write hits the database' }, text: { vi: 'Index Elasticsearch làm mới sau khoảng 1 giây. Màn hình cần kết quả tức thì đọc MySQL; điều kiện lọc đặt trong filter.', en: 'Elasticsearch refreshes after about a second. Instant screens read MySQL; filters go in the filter clause.' } },
-  { topic: { vi: 'Mở rộng', en: 'Scaling' }, title: { vi: 'Truy vấn sẵn sàng cho sharding', en: 'Sharding-ready queries' }, text: { vi: 'Mọi WHERE có khoá tenant, không JOIN chéo shard, danh sách IN chia lô tối đa 500 phần tử.', en: 'Every WHERE carries the tenant key, no cross-shard JOINs, IN lists chunked to 500.' } },
-  { topic: { vi: 'Truy vấn', en: 'Queries' }, title: { vi: 'QueryDSL thay chuỗi JPQL', en: 'QueryDSL over string JPQL' }, text: { vi: 'Kiểm tra kiểu lúc biên dịch, tránh lỗi derived query như field orgIn bị hiểu thành từ khoá In.', en: 'Type-checked at compile time; avoids traps like a field named orgIn parsed as the In keyword.' } },
-  { topic: { vi: 'Đồng thời', en: 'Concurrency' }, title: { vi: 'Dịch vụ chậm không được chặn web tier', en: 'Slow dependencies must not block the web tier' }, text: { vi: 'Dịch vụ xác minh có thể mất 15–120 giây: tách executor riêng, timeout cứng, trả thread Tomcat về pool sớm.', en: 'Verification can take 15–120 s: dedicated executor, hard timeouts, release Tomcat threads early.' } },
-];
-
-export const CODE_SAMPLE = `// Ghi nhật ký saga và phát bản tin chỉ sau khi giao dịch chính đã commit
-TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
-    @Override
-    public void afterCommit() {
-        sagaLogService.saveLogSagaInNewTransaction(sagaLog); // REQUIRES_NEW
-        outboundSender.send(event);                          // không phát khi rollback
-    }
-});`;
-
 export const EDUCATION_HEAD = {
   label: { vi: 'Học vấn', en: 'Education' } as Txt,
-  title: { vi: 'Học liên tục', en: 'Always learning' } as Txt,
+  title: { vi: 'Học liên tục, đi làm song song', en: 'Always learning, alongside the job' } as Txt,
+  note: {
+    vi: 'Ba chương trình nối tiếp và chồng lên nhau từ 2020: học nghề full-stack qua dự án, rồi lên kỹ sư phần mềm hệ eLearning trong lúc vẫn đi làm.',
+    en: 'Three overlapping programs since 2020: project-based full-stack training, then a software engineering degree by eLearning while working.',
+  } as Txt,
+  rulerTitle: { vi: 'Thước thời gian học tập', en: 'Learning timeline' } as Txt,
+  today: { vi: 'Hôm nay', en: 'Today' } as Txt,
+  studying: { vi: 'Đang học', en: 'In progress' } as Txt,
+  done: { vi: 'Hoàn thành', en: 'Completed' } as Txt,
+  program: { vi: 'Chương trình', en: 'Program' } as Txt,
+  mode: { vi: 'Hình thức', en: 'Format' } as Txt,
+  credential: { vi: 'Văn bằng', en: 'Credential' } as Txt,
+  duration: { vi: 'Thời lượng', en: 'Duration' } as Txt,
+  statYears: { vi: 'năm học liên tục từ 2020', en: 'years of continuous study since 2020' } as Txt,
+  statPrograms: { vi: 'chương trình', en: 'programs' } as Txt,
+  statMonths: { vi: 'tháng học, cộng dồn', en: 'months of study, combined' } as Txt,
 };
 
+const OLD_SITE = 'https://hoavannguyen1609.github.io/my-portfolio/images/';
+
 export const EDUCATION: Education[] = [
-  { period: { vi: '05/2024 – nay', en: '05/2024 – now' }, school: 'Học viện Công nghệ Bưu chính Viễn thông (PTIT)', detail: { vi: 'Kỹ sư Kỹ thuật phần mềm · hệ eLearning', en: 'B.Eng. Software Engineering · eLearning' } },
-  { period: '05/2021 – 11/2023', school: 'Fullstack Edu (F8)', detail: { vi: 'Full-stack Development · Học lập trình để đi làm', en: 'Full-stack Development · job-ready programming' } },
-  { period: '08/2020 – 09/2022', school: 'Viện CNTT và Truyền thông ITPlus', detail: { vi: 'Full-stack Development · học qua dự án thực tế', en: 'Full-stack Development · project-based learning' } },
+  {
+    id: 'itplus',
+    school: 'Viện Công nghệ Thông tin và Truyền thông ITPlus',
+    short: 'ITPlus',
+    logo: OLD_SITE + 'logoITPlus.png',
+    start: '2020-08',
+    end: '2022-09',
+    program: 'Full-stack Development',
+    mode: { vi: 'Học và làm theo dự án thực tế', en: 'Learning by building real projects' },
+  },
+  {
+    id: 'f8',
+    school: 'Fullstack Edu (F8)',
+    short: 'F8',
+    logo: OLD_SITE + 'f8-icon-lV2rGpF0.png',
+    start: '2021-05',
+    end: '2023-11',
+    program: 'Full-stack Development',
+    mode: { vi: 'Học lập trình để đi làm', en: 'Job-ready programming' },
+  },
+  {
+    id: 'ptit',
+    school: 'Học viện Công nghệ Bưu chính Viễn thông (PTIT)',
+    short: 'PTIT',
+    logo: OLD_SITE + 'Logo-Hoc-Vien-Cong-Nghe-Buu-Chinh-Vien-Thong-PTITSimple.webp',
+    start: '2024-05',
+    end: null,
+    program: { vi: 'Kỹ thuật phần mềm', en: 'Software Engineering' },
+    mode: 'eLearning',
+    credential: { vi: 'Kỹ sư', en: 'Bachelor of Engineering' },
+  },
 ];
 
 export const CONTACT_HEAD = {

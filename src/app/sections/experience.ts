@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { EXPERIENCE_HEAD, JOBS } from '../core/data/profile.data';
 import { I18nService } from '../core/i18n.service';
 import { MotionService } from '../core/motion.service';
+import { SpotlightDirective } from '../shared/motion/pointer.directives';
 import { RevealDirective } from '../shared/motion/reveal.directive';
 import { SectionHeading } from '../shared/section-heading';
 
@@ -11,7 +12,7 @@ import { SectionHeading } from '../shared/section-heading';
 @Component({
   selector: 'app-experience',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeading, RevealDirective],
+  imports: [SectionHeading, RevealDirective, SpotlightDirective],
   template: `
     <section id="experience" class="relative border-t border-line py-28 sm:py-40">
       <div class="wrap">
@@ -31,9 +32,9 @@ import { SectionHeading } from '../shared/section-heading';
                 }
                 {{ i18n.t(job.period) }}
               </div>
-              <div appReveal class="min-w-0">
-                <h3 class="font-display text-[clamp(1.5rem,3vw,2.2rem)] font-bold leading-tight">{{ job.company }}</h3>
-                <p class="mt-2 font-medium text-seal">{{ i18n.t(job.role) }}</p>
+              <div appReveal="tilt" appSpotlight [tilt]="4" class="min-w-0 rounded-[1.75rem] border border-line bg-surface/60 p-6 sm:p-8">
+                <h3 class="depth font-display text-[clamp(1.5rem,3vw,2.2rem)] font-bold leading-tight [--d:14px]">{{ job.company }}</h3>
+                <p class="depth mt-2 font-medium text-seal [--d:8px]">{{ i18n.t(job.role) }}</p>
                 <ul class="mt-5 grid max-w-2xl gap-3 text-muted">
                   @for (item of job.items; track $index) {
                     <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rotate-45 bg-seal/70"></span><span>{{ i18n.t(item) }}</span></li>

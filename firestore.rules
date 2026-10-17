@@ -1,0 +1,31 @@
+rules_version = '2';
+
+// Luật Firestore cho portfolio: người xem chỉ được TẠO lời nhắn hợp lệ, không ai đọc/sửa/xoá từ client.
+// Đọc lời nhắn bằng Firebase Console hoặc Admin SDK. Bật App Check enforcement cho Firestore để chặn bot.
+// Deploy: npm run deploy:rules (cần firebase-tools và firebase login)
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /messages/{messageId} {
+      allow create: if isValidMessage(request.resource.data);
+      allow read, update, delete: if false;
+    }
+
+    // Mọi collection khác: đóng hoàn toàn
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidMessage(d) {
+      return d.keys().hasOnly(['name', 'email', 'message', 'lang', 'page', 'createdAt'])
+        && d.keys().hasAll(['name', 'email', 'message', 'lang', 'createdAt'])
+        && d.name is string && d.name.size() > 0 && d.name.size() <= 80
+        && d.email is string && d.email.size() <= 120 && d.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')
+        && d.message is string && d.message.size() >= 10 && d.message.size() <= 2000
+        && d.lang in ['vi', 'en']
+        && (!('page' in d) || (d.page is string && d.page.size() <= 200))
+        // Thời điểm phải do server đặt (serverTimestamp), client không tự khai
+        && d.createdAt == request.time;
+    }
+  }
+}

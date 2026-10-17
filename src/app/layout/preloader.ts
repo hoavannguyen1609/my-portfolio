@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, afterNextRender, inject, signal, viewChild } from '@angular/core';
 import { gsap } from 'gsap';
+import { PerformanceService } from '../core/firebase/performance.service';
 import { MotionService } from '../core/motion.service';
 
 /** Màn chờ ngắn: đếm 0–100 trong lúc tải font, rồi kéo màn lên và báo hero chạy intro. */
@@ -39,6 +40,7 @@ export class Preloader {
   private readonly count = viewChild<ElementRef<HTMLElement>>('count');
   private readonly bar = viewChild<ElementRef<HTMLElement>>('bar');
   private readonly motion = inject(MotionService);
+  private readonly perf = inject(PerformanceService);
 
   constructor() {
     afterNextRender(() => {
@@ -46,26 +48,34 @@ export class Preloader {
         this.finish();
         return;
       }
+      // Giữ tham chiếu phần tử: khi @if gỡ màn chờ thì viewChild trả undefined
       const root = this.root()!.nativeElement;
+      const inner = this.inner()!.nativeElement;
+      const seal = this.seal()!.nativeElement;
+      const count = this.count()!.nativeElement;
+      const bar = this.bar()!.nativeElement;
       const counter = { v: 0 };
-      // Chốt an toàn: requestAnimationFrame bị treo (tab nền) thì vẫn mở trang sau 5 giây
-      const safety = setTimeout(() => this.finish(), 5000);
       const fonts = Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 2500))]);
 
       const tl = gsap.timeline();
-      tl.from(this.seal()!.nativeElement, { scale: 0.6, autoAlpha: 0, duration: 0.6, ease: 'back.out(2)' })
-        .to(this.seal()!.nativeElement, { rotate: 360, duration: 1.6, ease: 'power2.inOut' }, 0)
-        .to(counter, {
-          v: 100,
-          duration: 1.3,
-          ease: 'power2.inOut',
-          onUpdate: () => (this.count()!.nativeElement.textContent = String(Math.round(counter.v))),
-        }, 0.1)
-        .to(this.bar()!.nativeElement, { scaleX: 1, duration: 1.3, ease: 'power2.inOut' }, 0.1);
+      tl.from(seal, { scale: 0.6, autoAlpha: 0, duration: 0.6, ease: 'back.out(2)' })
+        .to(seal, { rotate: 360, duration: 1.6, ease: 'power2.inOut' }, 0)
+        .to(counter, { v: 100, duration: 1.3, ease: 'power2.inOut', onUpdate: () => (count.textContent = String(Math.round(counter.v))) }, 0.1)
+        .to(bar, { scaleX: 1, duration: 1.3, ease: 'power2.inOut' }, 0.1);
+
+      let exit: gsap.core.Timeline | undefined;
+      // Chốt an toàn: requestAnimationFrame bị treo (tab nền) thì vẫn mở trang sau 5 giây
+      const safety = setTimeout(() => {
+        tl.kill();
+        exit?.kill();
+        this.finish();
+      }, 5000);
 
       Promise.all([fonts, tl.then()]).then(() => {
-        gsap.timeline()
-          .to(this.inner()!.nativeElement, { scale: 0.9, autoAlpha: 0, duration: 0.4, ease: 'power2.in' })
+        if (!this.visible()) return;
+        exit = gsap
+          .timeline()
+          .to(inner, { scale: 0.9, autoAlpha: 0, duration: 0.4, ease: 'power2.in' })
           .to(root, { clipPath: 'inset(0 0 100% 0)', duration: 0.9, ease: 'expo.inOut' }, '-=0.1')
           .call(() => this.motion.introDone.set(true), [], '-=0.55')
           .call(() => {
@@ -80,6 +90,7 @@ export class Preloader {
     if (!this.visible()) return;
     this.visible.set(false);
     this.motion.introDone.set(true);
+    this.perf.mark('intro_ready');
     this.motion.refresh();
   }
 }

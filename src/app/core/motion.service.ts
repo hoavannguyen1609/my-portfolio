@@ -23,9 +23,11 @@ export class MotionService {
   private refreshTimer?: ReturnType<typeof setTimeout>;
 
   init(): void {
+    // Thanh địa chỉ mobile co giãn không làm tính lại toàn bộ trigger (giật khi cuộn)
+    ScrollTrigger.config({ ignoreMobileResize: true });
     if (this.reduced()) return;
 
-    this.lenis = new Lenis({ lerp: 0.1, anchors: { offset: HEADER_OFFSET } });
+    this.lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.95, anchors: { offset: HEADER_OFFSET } });
     this.lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => this.lenis?.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);

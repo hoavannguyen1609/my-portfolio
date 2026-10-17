@@ -79,8 +79,47 @@ export interface Note {
   text: Txt;
 }
 
+export type IntegrationKind = 'national' | 'internal' | 'partner' | 'platform';
+
+/** Một hệ thống bên ngoài đã tích hợp và các bảo đảm dữ liệu đi kèm. */
+export interface Integration {
+  id: string;
+  name: Txt;
+  short: Txt;
+  kind: IntegrationKind;
+  /** Hệ thống của tôi phía bên kia kết nối */
+  hub: 'eDLM' | 'THADS';
+  /** Chiều dữ liệu nhìn từ hub */
+  direction: 'out' | 'in' | 'both';
+  protocol: Txt;
+  summary: Txt;
+  guarantees: Txt[];
+}
+
+/** Một chốt trên đường đi của bản tin giữ cho dữ liệu không mất, không lệch. */
+export interface IntegrityStep {
+  title: Txt;
+  mechanism: Txt;
+  risk: Txt;
+  tags: string[];
+}
+
+export interface CodeSample {
+  file: string;
+  caption: Txt;
+  code: string;
+}
+
 export interface Education {
-  period: Txt;
+  id: string;
   school: string;
-  detail: Txt;
+  /** Tên ngắn trên thước thời gian */
+  short: string;
+  logo: string;
+  /** Tháng bắt đầu / kết thúc dạng YYYY-MM; end null = đang học */
+  start: string;
+  end: string | null;
+  program: Txt;
+  mode: Txt;
+  credential?: Txt;
 }

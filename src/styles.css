@@ -47,7 +47,8 @@
   --color-seal: var(--seal);
   --color-jade: var(--jade);
 
-  --font-display: "Bricolage Grotesque", "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+  /* Font tiêu đề phải vẽ đúng dấu chồng tiếng Việt (ể, ễ, ỗ…); Bricolage Grotesque vẽ sai nên đã thay */
+  --font-display: "Geologica", "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
 
@@ -170,6 +171,12 @@ html.lenis, html.lenis body { height: auto; }
 }
 .spotlight:hover::after { opacity: 1; }
 
+/* Lớp nổi trong thẻ có appSpotlight: trôi theo con trỏ, --d là độ sâu (px) */
+.depth {
+  translate: calc((var(--px, 0.5) - 0.5) * var(--d, 10px)) calc((var(--py, 0.5) - 0.5) * var(--d, 10px));
+  transition: translate 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 .chip {
   display: inline-flex;
   align-items: center;
@@ -232,8 +239,9 @@ html.lenis, html.lenis body { height: auto; }
 
 }
 
-/* SplitText: mặt nạ dòng không cắt dấu tiếng Việt */
-.split-line { padding-block: 0.08em; margin-block: -0.08em; }
+/* SplitText: mặt nạ (overflow: clip) cao đúng bằng line-height sẽ cắt dấu chồng tiếng Việt;
+   nới vùng cắt lên trên/xuống dưới rồi trả lại bằng margin âm để bố cục không đổi */
+.split-line-mask { padding-block: 0.28em 0.14em; margin-block: -0.28em -0.14em; }
 
 /* Đổi theme bằng View Transitions: vòng tròn lan từ điểm bấm */
 ::view-transition-old(root),
@@ -256,6 +264,34 @@ html.lenis, html.lenis body { height: auto; }
   }
 }
 
+/* Ảnh bìa dự án sinh từ token màu */
+.cover-rings {
+  background:
+    repeating-radial-gradient(circle at 70% 30%, transparent 0 14px, color-mix(in srgb, var(--seal) 22%, transparent) 14px 15px),
+    radial-gradient(circle at 70% 30%, var(--glow-seal), transparent 60%),
+    var(--surface-2);
+}
+.cover-grid {
+  background:
+    linear-gradient(to right, color-mix(in srgb, var(--jade) 25%, transparent) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(to bottom, color-mix(in srgb, var(--jade) 25%, transparent) 1px, transparent 1px) 0 0 / 22px 22px,
+    radial-gradient(circle at 30% 70%, var(--glow-jade), transparent 65%),
+    var(--surface-2);
+}
+.cover-dots {
+  background:
+    radial-gradient(color-mix(in srgb, var(--fg) 28%, transparent) 1.2px, transparent 1.4px) 0 0 / 14px 14px,
+    conic-gradient(from 210deg at 60% 50%, var(--glow-seal), var(--glow-jade), var(--glow-seal)),
+    var(--surface-2);
+}
+
+.expand-in { animation: expand-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.expand-out { animation: expand-in 0.25s ease-in reverse both; }
+@keyframes expand-in {
+  from { opacity: 0; transform: translateY(-10px); clip-path: inset(0 0 100% 0); }
+  to { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }
+}
+
 .tl-dot.is-on {
   border-color: var(--seal);
   background: var(--seal);
@@ -265,6 +301,9 @@ html.lenis, html.lenis body { height: auto; }
 @keyframes scroll-cue {
   0% { transform: translateY(-100%); }
   100% { transform: translateY(200%); }
+}
+@keyframes stripes {
+  to { background-position: 40px 0; }
 }
 @keyframes nudge {
   0%, 100% { transform: translateX(0); }

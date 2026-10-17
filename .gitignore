@@ -45,3 +45,18 @@ Thumbs.db
 
 # Cấu hình cục bộ của Claude Code (chứa đường dẫn máy)
 /.claude/
+
+# Biến môi trường và cấu hình sinh tự động
+.env
+.env.*
+!.env.example
+/src/environments/env.generated.ts
+# Firebase CLI (ID dự án để cục bộ, không commit)
+.firebaserc
+.firebase/
+firebase-debug.log
+firestore-debug.log
+
+# Bản xem trước CV sinh tự động (PDF đã chép vào public/cv) và gói chuyển máy
+/cv/out/
+/.transfer/

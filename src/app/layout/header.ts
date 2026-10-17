@@ -10,9 +10,10 @@ import {
   viewChild,
   viewChildren,
 } from '@angular/core';
-import { LucideFileText, LucideLanguages, LucideMenu, LucideMoon, LucideSun, LucideX } from '@lucide/angular';
+import { LucideCommand, LucideFileText, LucideLanguages, LucideMenu, LucideMoon, LucideSun, LucideX } from '@lucide/angular';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { CommandPaletteService } from '../core/command-palette.service';
 import { HERO, NAV, PROFILE } from '../core/data/profile.data';
 import { I18nService } from '../core/i18n.service';
 import { MotionService } from '../core/motion.service';
@@ -23,7 +24,7 @@ import { MagneticDirective } from '../shared/motion/pointer.directives';
 @Component({
   selector: 'app-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [LucideSun, LucideMoon, LucideMenu, LucideX, LucideLanguages, LucideFileText, MagneticDirective],
+  imports: [LucideSun, LucideMoon, LucideMenu, LucideX, LucideLanguages, LucideFileText, LucideCommand, MagneticDirective],
   template: `
     <div #progress class="fixed inset-x-0 top-0 z-[70] h-[3px] origin-left scale-x-0 bg-gradient-to-r from-seal via-seal to-jade"></div>
 
@@ -50,7 +51,10 @@ import { MagneticDirective } from '../shared/motion/pointer.directives';
         </nav>
 
         <div class="ml-auto flex items-center gap-1.5 lg:ml-3">
-          <a appMagnetic [href]="profile.cv" target="_blank" rel="noopener" class="hidden items-center gap-1.5 rounded-full border border-line px-3 py-2 text-xs font-semibold md:inline-flex">
+          <button type="button" appMagnetic (click)="palette.toggle()" class="hidden h-9 items-center gap-1.5 rounded-full border border-line px-3 font-mono text-xs text-muted hover:text-fg md:inline-flex" [attr.aria-label]="i18n.lang() === 'vi' ? 'Mở bảng lệnh' : 'Open command palette'">
+            <svg lucideCommand [size]="13"></svg>K
+          </button>
+          <a appMagnetic [href]="i18n.t(profile.cv)" target="_blank" rel="noopener" type="application/pdf" data-track="header_cv" class="hidden items-center gap-1.5 rounded-full border border-line px-3 py-2 text-xs font-semibold md:inline-flex">
             <svg lucideFileText [size]="14"></svg>CV
           </a>
           <button type="button" appMagnetic (click)="i18n.toggle()" class="inline-flex h-9 items-center gap-1.5 rounded-full border border-line px-3 font-mono text-xs font-bold" [attr.aria-label]="i18n.lang() === 'vi' ? 'Switch to English' : 'Chuyển sang tiếng Việt'">
@@ -90,6 +94,7 @@ export class Header {
   protected readonly hero = HERO;
   protected readonly i18n = inject(I18nService);
   protected readonly theme = inject(ThemeService);
+  protected readonly palette = inject(CommandPaletteService);
   protected readonly active = signal('');
   protected readonly menuOpen = signal(false);
 

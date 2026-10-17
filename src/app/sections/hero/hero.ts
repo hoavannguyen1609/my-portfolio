@@ -18,12 +18,15 @@ import { MotionService } from '../../core/motion.service';
 import { CountUpDirective } from '../../shared/motion/count-up.directive';
 import { MagneticDirective, SpotlightDirective } from '../../shared/motion/pointer.directives';
 import { SplitTextDirective } from '../../shared/motion/split-text.directive';
+import { RemoteConfigService } from '../../core/firebase/remote-config.service';
+import { HeroScene } from './hero-scene';
 import { MeshCanvas } from './mesh-canvas';
 
 @Component({
   selector: 'app-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    HeroScene,
     MeshCanvas,
     SplitTextDirective,
     CountUpDirective,
@@ -45,6 +48,7 @@ export class Hero {
   /** Bước đang xử lý trên phiếu trình; bằng flow.length nghĩa là đã ban hành */
   protected readonly step = signal(-1);
   protected readonly avatarFailed = signal(false);
+  protected readonly hero3d = inject(RemoteConfigService).flag('hero_3d');
 
   private readonly motion = inject(MotionService);
   private readonly section = viewChild.required<ElementRef<HTMLElement>>('section');
@@ -55,6 +59,7 @@ export class Hero {
   private ctx?: gsap.Context;
   private roleTimer?: ReturnType<typeof setInterval>;
   private flowTl?: gsap.core.Timeline;
+  private floating = false;
 
   constructor() {
     afterNextRender(() => {
@@ -119,6 +124,12 @@ export class Hero {
       .fromTo(seal, { autoAlpha: 0, scale: 2.4, rotate: -40 }, { autoAlpha: 1, scale: 1, rotate: -14, duration: 0.5, ease: 'back.out(2.5)' })
       .fromTo(card, { x: 0 }, { keyframes: { x: [0, -5, 4, -2, 0] }, duration: 0.35, ease: 'power1.out' }, '-=0.2');
     this.flowTl = tl;
+
+    // Phiếu trình lơ lửng nhẹ sau khi đóng dấu
+    if (!this.floating) {
+      this.floating = true;
+      gsap.to(card, { y: -12, duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: tl.duration() });
+    }
   }
 
   protected stateOf(index: number): 'done' | 'active' | 'idle' {

@@ -1,5 +1,12 @@
 <section #section id="top" class="relative isolate flex min-h-[100svh] items-center overflow-hidden pb-20 pt-32">
-  <app-mesh-canvas />
+  <!-- Remote Config hero_3d=false: dùng canvas 2D nhẹ -->
+  @if (hero3d()) {
+    @defer (on idle) {
+      <app-hero-scene />
+    }
+  } @else {
+    <app-mesh-canvas />
+  }
   <div class="bg-grid absolute inset-0 -z-20 opacity-80"></div>
   <div class="pointer-events-none absolute -left-48 top-1/4 -z-20 size-[560px] rounded-full bg-seal/20 blur-[130px]"></div>
   <div class="pointer-events-none absolute -right-40 bottom-0 -z-20 size-[520px] rounded-full bg-jade/15 blur-[140px]"></div>
@@ -31,11 +38,11 @@
       <p data-intro class="mt-6 max-w-xl text-lg leading-relaxed text-muted">{{ i18n.t(hero.lead) }}</p>
 
       <div data-intro class="mt-9 flex flex-wrap gap-3">
-        <a appMagnetic href="#work" class="btn btn-primary" data-cursor="Go">
+        <a appMagnetic href="#work" class="btn btn-primary" data-cursor="Go" data-track="hero_work">
           {{ i18n.t(hero.ctaWork) }}<svg lucideArrowUpRight [size]="18"></svg>
         </a>
-        <a appMagnetic href="#contact" class="btn">{{ i18n.t(hero.ctaContact) }}</a>
-        <a appMagnetic [href]="profile.cv" target="_blank" rel="noopener" class="btn">
+        <a appMagnetic href="#contact" class="btn" data-track="hero_contact">{{ i18n.t(hero.ctaContact) }}</a>
+        <a appMagnetic [href]="i18n.t(profile.cv)" target="_blank" rel="noopener" type="application/pdf" class="btn" data-track="hero_cv">
           <svg lucideFileText [size]="16"></svg>{{ i18n.t(hero.cv) }}
         </a>
       </div>
@@ -52,7 +59,7 @@
     </div>
 
     <!-- Phiếu trình: luồng văn bản chạy qua từng bước rồi đóng dấu -->
-    <aside #card appSpotlight [tilt]="9" class="glass relative min-w-0 overflow-hidden rounded-3xl p-6 shadow-[0_40px_120px_-40px_rgba(0,0,0,.7)] sm:p-7" [attr.aria-label]="i18n.t(slip.kind)">
+    <aside #card appSpotlight [tilt]="12" class="glass relative min-w-0 overflow-hidden rounded-3xl p-6 shadow-[0_40px_120px_-40px_rgba(0,0,0,.7)] sm:p-7" [attr.aria-label]="i18n.t(slip.kind)">
       <div class="absolute inset-x-0 top-0 h-1 bg-[repeating-linear-gradient(90deg,var(--seal)_0_18px,transparent_18px_28px)] opacity-80"></div>
 
       <div class="flex items-start justify-between gap-4 border-b border-dashed border-line pb-5">
@@ -61,9 +68,9 @@
           <p class="mt-2 font-mono text-sm">{{ slip.number }}</p>
         </div>
         @if (!avatarFailed()) {
-          <img [src]="profile.avatar" [alt]="profile.name" width="64" height="64" (error)="avatarFailed.set(true)" class="size-16 rounded-2xl border border-line bg-surface-2 object-cover" />
+          <img [src]="profile.avatar" [alt]="profile.name" width="64" height="64" (error)="avatarFailed.set(true)" class="depth size-16 rounded-2xl border border-line bg-surface-2 object-cover shadow-lg [--d:26px]" />
         } @else {
-          <div class="grid size-16 place-items-center rounded-2xl border border-line bg-surface-2 font-display text-lg font-bold text-muted" aria-hidden="true">NVH</div>
+          <div class="depth grid size-16 place-items-center rounded-2xl border border-line bg-surface-2 font-display text-lg font-bold text-muted [--d:26px]" aria-hidden="true">NVH</div>
         }
       </div>
 
@@ -74,7 +81,7 @@
         }
       </dl>
 
-      <ol class="grid max-w-[calc(100%-6.5rem)] gap-1.5">
+      <ol class="depth grid max-w-[calc(100%-6.5rem)] gap-1.5 [--d:12px]">
         @for (s of slip.flow; track $index) {
           <li
             [attr.data-state]="stateOf($index)"
@@ -91,7 +98,7 @@
         <svg lucideRotateCcw [size]="12"></svg>{{ i18n.lang() === 'vi' ? 'Chạy lại luồng' : 'Replay workflow' }}
       </button>
 
-      <div #seal class="pointer-events-none absolute bottom-5 right-5 grid size-28 -rotate-[14deg] place-items-center rounded-full border-[3px] border-double border-seal text-seal" aria-hidden="true">
+      <div #seal class="depth pointer-events-none absolute bottom-5 right-5 grid size-28 [--d:34px] -rotate-[14deg] place-items-center rounded-full border-[3px] border-double border-seal text-seal" aria-hidden="true">
         <svg class="absolute inset-0 size-full" viewBox="0 0 120 120">
           <defs><path id="seal-ring" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" /></defs>
           <text class="fill-current font-mono" font-size="9.5" letter-spacing="2">

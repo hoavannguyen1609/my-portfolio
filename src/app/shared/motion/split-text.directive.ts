@@ -65,10 +65,15 @@ export class SplitTextDirective {
       autoSplit: true,
       onSplit: (self) => {
         const targets = by === 'chars' ? self.chars : by === 'words' ? self.words : self.lines;
+        // Chữ lật lên quanh trục X như mặt phẳng đứng dậy
         const vars: gsap.TweenVars = {
-          yPercent: 115,
-          rotate: by === 'chars' ? 6 : 0,
-          duration: isUpdate ? 0.6 : 1.05,
+          // Đủ xa để không lộ qua phần đệm của mặt nạ (.split-line-mask)
+          yPercent: 135,
+          rotateX: -95,
+          z: by === 'chars' ? -40 : -20,
+          transformPerspective: 700,
+          transformOrigin: '50% 100% -0.3em',
+          duration: isUpdate ? 0.7 : 1.2,
           ease: 'expo.out',
           stagger: by === 'chars' ? 0.028 : 0.045,
           delay: isUpdate ? 0 : this.splitDelay(),

@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, afterNextRender, inject, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, afterNextRender, effect, inject, signal, viewChild } from '@angular/core';
 import { gsap } from 'gsap';
+import { RemoteConfigService } from '../core/firebase/remote-config.service';
 import { MotionService } from '../core/motion.service';
 
 /** Con trỏ tuỳ biến: chấm đỏ bám sát, vòng tròn trễ nhẹ, phóng to khi rê qua phần tử bấm được. */
@@ -9,16 +10,18 @@ import { MotionService } from '../core/motion.service';
   host: { 'aria-hidden': 'true' },
   template: `
     @if (enabled()) {
-      <div #ring class="pointer-events-none fixed left-0 top-0 z-[95] -ml-5 -mt-5 grid size-10 place-items-center rounded-full border border-white/70 mix-blend-difference">
+      <div #ring [class.hidden]="!flag()" class="pointer-events-none fixed left-0 top-0 z-[95] -ml-5 -mt-5 grid size-10 place-items-center rounded-full border border-white/70 mix-blend-difference">
         <span class="font-mono text-[9px] font-bold uppercase tracking-widest text-white">{{ label() }}</span>
       </div>
-      <div #dot class="pointer-events-none fixed left-0 top-0 z-[96] -ml-1 -mt-1 size-2 rounded-full bg-seal"></div>
+      <div #dot [class.hidden]="!flag()" class="pointer-events-none fixed left-0 top-0 z-[96] -ml-1 -mt-1 size-2 rounded-full bg-seal"></div>
     }
   `,
 })
 export class Cursor {
   protected readonly enabled = signal(false);
   protected readonly label = signal('');
+  /** Remote Config custom_cursor=false: ẩn con trỏ tuỳ biến, trả lại con trỏ hệ thống */
+  protected readonly flag = inject(RemoteConfigService).flag('custom_cursor');
   private readonly ring = viewChild<ElementRef<HTMLElement>>('ring');
   private readonly dot = viewChild<ElementRef<HTMLElement>>('dot');
 
@@ -26,10 +29,13 @@ export class Cursor {
     const motion = inject(MotionService);
     const off: (() => void)[] = [];
 
+    effect(() => {
+      document.documentElement.classList.toggle('has-cursor', this.enabled() && this.flag());
+    });
+
     afterNextRender(() => {
       if (motion.reduced() || !matchMedia('(pointer: fine)').matches) return;
       this.enabled.set(true);
-      document.documentElement.classList.add('has-cursor');
 
       // Chờ @if vẽ phần tử
       requestAnimationFrame(() => {

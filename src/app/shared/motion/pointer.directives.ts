@@ -36,7 +36,8 @@ export class MagneticDirective {
 }
 
 /**
- * Đặt --mx/--my cho hiệu ứng .spotlight; tilt > 0 thì nghiêng thẻ 3D theo con trỏ.
+ * Đặt --mx/--my cho hiệu ứng .spotlight, --px/--py (0–1) cho lớp .depth trôi ngược hướng nghiêng;
+ * tilt > 0 thì nghiêng thẻ 3D theo con trỏ.
  */
 @Directive({ selector: '[appSpotlight]', host: { class: 'spotlight' } })
 export class SpotlightDirective {
@@ -58,11 +59,17 @@ export class SpotlightDirective {
         const py = (e.clientY - r.top) / r.height;
         el.style.setProperty('--mx', `${px * 100}%`);
         el.style.setProperty('--my', `${py * 100}%`);
+        el.style.setProperty('--px', px.toFixed(3));
+        el.style.setProperty('--py', py.toFixed(3));
         if (canTilt) {
           gsap.to(el, { rotateY: (px - 0.5) * this.tilt(), rotateX: (0.5 - py) * this.tilt(), duration: 0.5, ease: 'power2.out' });
         }
       };
-      const leave = () => canTilt && gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.8, ease: 'power3.out' });
+      const leave = () => {
+        el.style.setProperty('--px', '0.5');
+        el.style.setProperty('--py', '0.5');
+        if (canTilt) gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.8, ease: 'power3.out' });
+      };
       el.addEventListener('pointermove', move);
       el.addEventListener('pointerleave', leave);
       off.push(() => el.removeEventListener('pointermove', move), () => el.removeEventListener('pointerleave', leave));
